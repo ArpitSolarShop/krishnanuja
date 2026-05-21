@@ -112,6 +112,7 @@ export default function ConversationalForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isCompleted, setIsCompleted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
   
@@ -155,20 +156,41 @@ export default function ConversationalForm() {
     return true;
   };
 
-  const handleNext = () => {
-    if (isAnimating) return;
+  const handleNext = async () => {
+    if (isAnimating || isSubmitting) return;
     if (!validateCurrentStep()) return;
 
-    setIsAnimating(true);
-    setTimeout(() => {
-      if (currentStep < QUESTIONS.length - 1) {
-        setCurrentStep(prev => prev + 1);
-      } else {
-        setIsCompleted(true);
+    if (currentStep === QUESTIONS.length - 1) {
+      setIsSubmitting(true);
+      try {
+        const res = await fetch('/api/quote', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(answers),
+        });
+
+        if (!res.ok) throw new Error('Submission failed');
+
+        setIsAnimating(true);
+        setTimeout(() => {
+          setIsCompleted(true);
+          setIsAnimating(false);
+          setIsSubmitting(false);
+          setError('');
+        }, 400);
+      } catch (err) {
+        console.error(err);
+        setError('An error occurred. Please try again.');
+        setIsSubmitting(false);
       }
-      setIsAnimating(false);
-      setError('');
-    }, 400); // Animation duration
+    } else {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentStep(prev => prev + 1);
+        setIsAnimating(false);
+        setError('');
+      }, 400);
+    }
   };
 
   const handlePrev = () => {
@@ -362,12 +384,17 @@ export default function ConversationalForm() {
           <div className="mt-12 flex items-center gap-4">
             <button
               onClick={handleNext}
-              className="group flex items-center gap-2 bg-white text-black px-6 py-3 rounded-xl font-medium hover:bg-neutral-200 transition-all active:scale-95"
+              disabled={isSubmitting}
+              className="group flex items-center gap-2 bg-white text-black px-6 py-3 rounded-xl font-medium hover:bg-neutral-200 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span className="flex items-center gap-2">
-                {currentStep === QUESTIONS.length - 1 ? UI_STRINGS.en.submit : UI_STRINGS.en.ok}
+                {currentStep === QUESTIONS.length - 1 
+                  ? (isSubmitting ? '...' : UI_STRINGS.en.submit) 
+                  : UI_STRINGS.en.ok}
                 <span className="opacity-40">|</span>
-                {currentStep === QUESTIONS.length - 1 ? UI_STRINGS.hi.submit : UI_STRINGS.hi.ok}
+                {currentStep === QUESTIONS.length - 1 
+                  ? (isSubmitting ? '...' : UI_STRINGS.hi.submit) 
+                  : UI_STRINGS.hi.ok}
               </span>
               <Check size={18} className="opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all" />
             </button>
