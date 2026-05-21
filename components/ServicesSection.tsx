@@ -74,7 +74,7 @@ export default function ServicesSection() {
             <Sparkles className="w-3 h-3 mr-1" />
             Our Services
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
             Complete Solar
             <span className="gradient-text"> Solutions</span>
           </h2>
@@ -89,7 +89,7 @@ export default function ServicesSection() {
           {services.map((service) => (
             <Card
               key={service.title}
-              className="group card-3d border-brand-blue/5 bg-card/80 backdrop-blur-sm hover:border-brand-blue/20 transition-all duration-500 overflow-hidden"
+              className="group  border-brand-blue/5 bg-card/80 backdrop-blur-sm hover:border-brand-blue/20 overflow-hidden"
             >
               <CardContent className="p-0">
                 {/* Image */}
@@ -98,7 +98,7 @@ export default function ServicesSection() {
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="object-cover group-"
                   />
                   <div className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-60`} />
                   <div className="absolute top-4 left-4">
@@ -110,7 +110,7 @@ export default function ServicesSection() {
                 
                 {/* Content */}
                 <div className="p-6 space-y-4">
-                  <h3 className="text-xl font-bold text-brand-navy group-hover:text-brand-blue transition-colors">
+                  <h3 className="text-xl font-bold text-white group-hover:text-brand-blue">
                     {service.title}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -118,7 +118,7 @@ export default function ServicesSection() {
                   </p>
                   <ul className="space-y-2">
                     {service.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-sm text-brand-navy/70">
+                      <li key={feature} className="flex items-center gap-2 text-sm text-white/70">
                         <div className="w-1.5 h-1.5 rounded-full bg-brand-gold shrink-0" />
                         {feature}
                       </li>
@@ -130,7 +130,7 @@ export default function ServicesSection() {
                       className="w-full mt-2 text-brand-blue hover:text-brand-blue hover:bg-brand-blue/5 group/btn"
                     >
                       Learn More
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1" />
                     </Button>
                   </Link>
                 </div>

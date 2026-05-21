@@ -43,7 +43,7 @@ export default function ProcessSection() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <Badge className="bg-white/10 text-white/90 border-white/15 mb-4">
+          <Badge className="bg-white/10 text-white border-white/20/15 mb-4">
             How It Works
           </Badge>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
@@ -72,16 +72,16 @@ export default function ProcessSection() {
               <div className="text-center space-y-6">
                 {/* Step number circle */}
                 <div className="relative mx-auto">
-                  <div className="w-20 h-20 mx-auto rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/10 group-hover:border-brand-gold/30 transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-brand-gold/20">
-                    <step.icon className="w-8 h-8 text-brand-gold-light group-hover:text-brand-gold transition-colors" />
+                  <div className="w-20 h-20 mx-auto rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/10 group-hover:border-brand-gold/30 group- group-hover:shadow-lg group-hover:shadow-brand-gold/20">
+                    <step.icon className="w-8 h-8 text-brand-gold-light group-hover:text-brand-gold" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-brand-gold to-brand-gold-light flex items-center justify-center text-xs font-bold text-brand-navy shadow-lg">
+                  <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-brand-gold to-brand-gold-light flex items-center justify-center text-xs font-bold text-white shadow-lg">
                     {step.step}
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-brand-gold-light transition-colors">
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-brand-gold-light">
                     {step.title}
                   </h3>
                   <p className="text-sm text-white/50 leading-relaxed">

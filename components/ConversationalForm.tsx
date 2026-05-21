@@ -115,14 +115,16 @@ export default function ConversationalForm() {
   const [error, setError] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
   
-  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+  const inputRef = useRef<any>(null);
   const currentQuestion = QUESTIONS[currentStep];
 
   // Auto-focus input when step changes
   useEffect(() => {
     if (inputRef.current && !isAnimating) {
       setTimeout(() => {
-        inputRef.current?.focus();
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
       }, 100);
     }
   }, [currentStep, isAnimating]);
@@ -228,7 +230,7 @@ export default function ConversationalForm() {
       case 'tel':
         return (
           <input
-            ref={inputRef as React.RefObject<HTMLInputElement>}
+            ref={inputRef}
             type={currentQuestion.type}
             value={answers[currentQuestion.id] || ''}
             onChange={(e) => handleInputChange(e.target.value)}
@@ -239,7 +241,7 @@ export default function ConversationalForm() {
       case 'textarea':
         return (
           <textarea
-            ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+            ref={inputRef}
             value={answers[currentQuestion.id] || ''}
             onChange={(e) => handleInputChange(e.target.value)}
             placeholder={placeholderCombo}

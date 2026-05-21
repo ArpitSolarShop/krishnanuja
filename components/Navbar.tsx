@@ -30,17 +30,17 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "glass shadow-lg shadow-brand-blue/5 py-2"
-          : "bg-transparent py-4"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 ${
+ scrolled
+ ? "glass shadow-lg shadow-brand-blue/5 py-2"
+ : "bg-transparent py-4"
+ }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14 transition-transform duration-300 group-hover:scale-105">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 group-">
               <Image
                 src="/logo.png"
                 alt="Krishnanuja Renewables"
@@ -50,7 +50,7 @@ export default function Navbar() {
               />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-lg font-bold tracking-tight text-brand-navy leading-tight">
+              <h1 className="text-lg font-bold tracking-tight text-white leading-tight">
                 Krishnanuja
               </h1>
               <p className="text-[10px] font-medium text-brand-blue-light tracking-widest uppercase">
@@ -65,7 +65,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 text-sm font-medium text-brand-navy/80 hover:text-brand-blue transition-colors duration-200 rounded-lg hover:bg-brand-blue/5"
+                className="px-3 py-2 text-sm font-medium text-white/80 hover:text-brand-blue rounded-lg hover:bg-brand-blue/5"
               >
                 {link.label}
               </Link>
@@ -88,7 +88,7 @@ export default function Navbar() {
             <Link href="/quote" className="hidden sm:block">
               <Button
                 size="sm"
-                className="bg-gradient-to-r from-brand-blue to-brand-blue-light text-white shadow-lg shadow-brand-blue/25 hover:shadow-brand-blue/40 transition-all duration-300 hover:scale-105"
+                className="bg-gradient-to-r from-brand-blue to-brand-blue-light text-white shadow-lg shadow-brand-blue/25 hover:shadow-brand-blue/40"
               >
                 <Zap className="w-4 h-4 mr-1" />
                 Get Free Quote
@@ -98,16 +98,16 @@ export default function Navbar() {
             {/* Mobile Menu */}
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="icon" className="text-brand-navy">
+                <Button variant="ghost" size="icon" className="text-white">
                   <Menu className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 bg-white/95 backdrop-blur-xl">
+              <SheetContent side="right" className="w-80 bg-neutral-950/95 backdrop-blur-xl">
                 <div className="flex flex-col h-full pt-8">
                   <div className="flex items-center gap-3 mb-8 px-2">
                     <Image src="/logo.png" alt="Logo" width={48} height={48} />
                     <div>
-                      <p className="font-bold text-brand-navy">Krishnanuja</p>
+                      <p className="font-bold text-white">Krishnanuja</p>
                       <p className="text-xs text-brand-blue-light">Renewables Pvt. Ltd.</p>
                     </div>
                   </div>
@@ -117,7 +117,7 @@ export default function Navbar() {
                         key={link.href}
                         href={link.href}
                         onClick={() => setOpen(false)}
-                        className="px-4 py-3 text-brand-navy/80 hover:text-brand-blue hover:bg-brand-blue/5 rounded-lg transition-all duration-200 font-medium"
+                        className="px-4 py-3 text-white/80 hover:text-brand-blue hover:bg-brand-blue/5 rounded-lg font-medium"
                       >
                         {link.label}
                       </Link>

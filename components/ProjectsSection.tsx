@@ -51,7 +51,7 @@ export default function ProjectsSection() {
           <Badge className="bg-brand-blue/10 text-brand-blue border-brand-blue/20 mb-4">
             Our Projects
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
             Powering Success
             <span className="gradient-text"> Across India</span>
           </h2>
@@ -66,7 +66,7 @@ export default function ProjectsSection() {
           {projects.map((project, i) => (
             <Card
               key={i}
-              className="group card-3d border-brand-blue/5 bg-card/80 backdrop-blur-sm overflow-hidden hover:border-brand-blue/15 transition-all duration-500"
+              className="group  border-brand-blue/5 bg-card/80 backdrop-blur-sm overflow-hidden hover:border-brand-blue/15"
             >
               <CardContent className="p-0">
                 <div className="grid sm:grid-cols-2">
@@ -76,17 +76,17 @@ export default function ProjectsSection() {
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="object-cover group-"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent to-brand-navy/30" />
-                    <Badge className="absolute top-4 left-4 bg-brand-gold text-brand-navy border-0 font-semibold">
+                    <Badge className="absolute top-4 left-4 bg-brand-gold text-white border-0 font-semibold">
                       {project.type}
                     </Badge>
                   </div>
 
                   {/* Info */}
                   <div className="p-6 flex flex-col justify-center space-y-4">
-                    <h3 className="text-xl font-bold text-brand-navy group-hover:text-brand-blue transition-colors">
+                    <h3 className="text-xl font-bold text-white group-hover:text-brand-blue">
                       {project.title}
                     </h3>
                     <div className="space-y-3">
@@ -96,7 +96,7 @@ export default function ProjectsSection() {
                       </div>
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Zap className="w-4 h-4 text-brand-gold shrink-0" />
-                        Capacity: <span className="font-semibold text-brand-navy">{project.capacity}</span>
+                        Capacity: <span className="font-semibold text-white">{project.capacity}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Calendar className="w-4 h-4 text-brand-blue-light shrink-0" />

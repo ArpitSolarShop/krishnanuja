@@ -81,13 +81,13 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3 text-sm text-white/50">
                 <Phone className="w-4 h-4 text-brand-gold-light shrink-0" />
-                <a href="tel:+919044555572" className="hover:text-brand-gold-light transition-colors">
+                <a href="tel:+919044555572" className="hover:text-brand-gold-light">
                   +91 9044555572 (WhatsApp & Call)
                 </a>
               </div>
               <div className="flex items-center gap-3 text-sm text-white/50">
                 <Mail className="w-4 h-4 text-brand-gold-light shrink-0" />
-                <a href="mailto:info@krishnanuja.com" className="hover:text-brand-gold-light transition-colors">
+                <a href="mailto:info@krishnanuja.com" className="hover:text-brand-gold-light">
                   info@krishnanuja.com
                 </a>
               </div>
@@ -100,9 +100,9 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center hover:bg-brand-gold/20 hover:border-brand-gold/30 transition-all duration-200 group"
+                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/20/8 flex items-center justify-center hover:bg-brand-gold/20 hover:border-brand-gold/30 group"
                 >
-                  <Icon className="w-4 h-4 text-white/50 group-hover:text-brand-gold-light transition-colors" />
+                  <Icon className="w-4 h-4 text-white/50 group-hover:text-brand-gold-light" />
                 </a>
               ))}
             </div>
@@ -119,7 +119,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/40 hover:text-brand-gold-light transition-colors duration-200"
+                      className="text-sm text-white/40 hover:text-brand-gold-light"
                     >
                       {link.label}
                     </Link>
@@ -130,7 +130,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <Separator className="my-10 bg-white/8" />
+        <Separator className="my-10 bg-neutral-950/8" />
 
         {/* Bottom */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -138,9 +138,9 @@ export default function Footer() {
             © {new Date().getFullYear()} Krishnanuja Renewables Pvt. Ltd. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm text-white/30">
-            <Link href="#" className="hover:text-white/60 transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-white/60 transition-colors">Terms of Service</Link>
-            <Link href="#" className="hover:text-white/60 transition-colors">Sitemap</Link>
+            <Link href="#" className="hover:text-white/60">Privacy Policy</Link>
+            <Link href="#" className="hover:text-white/60">Terms of Service</Link>
+            <Link href="#" className="hover:text-white/60">Sitemap</Link>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@ export default function Footer() {
       {/* Back to top */}
       <Link
         href="#home"
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-gradient-to-r from-brand-blue to-brand-blue-light text-white shadow-lg shadow-brand-blue/30 flex items-center justify-center hover:scale-110 hover:shadow-brand-blue/50 transition-all duration-300"
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-gradient-to-r from-brand-blue to-brand-blue-light text-white shadow-lg shadow-brand-blue/30 flex items-center justify-center hover:shadow-brand-blue/50"
         aria-label="Back to top"
       >
         <ArrowUp className="w-5 h-5" />

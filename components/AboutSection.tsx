@@ -14,14 +14,14 @@ export default function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Image side */}
           <div className="relative group">
-            <div className="absolute -inset-4 bg-gradient-to-r from-brand-blue/20 to-brand-gold/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-brand-blue/20 to-brand-gold/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-75" />
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-brand-blue/10">
               <Image
                 src="/solar-farm.png"
                 alt="Krishnanuja Renewables Solar Farm"
                 width={640}
                 height={480}
-                className="object-cover w-full h-[400px] lg:h-[500px] transition-transform duration-700 group-hover:scale-105"
+                className="object-cover w-full h-[400px] lg:h-[500px] group-"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
@@ -30,7 +30,7 @@ export default function AboutSection() {
                     <Award className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-brand-navy text-sm">Trusted Solar EPC Partner</p>
+                    <p className="font-semibold text-white text-sm">Trusted Solar EPC Partner</p>
                     <p className="text-xs text-brand-blue-light">ISO Certified • MNRE Approved</p>
                   </div>
                 </div>
@@ -44,7 +44,7 @@ export default function AboutSection() {
               <Badge className="bg-brand-blue/10 text-brand-blue border-brand-blue/20 mb-4">
                 About Krishnanuja
               </Badge>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
                 Powering India&apos;s
                 <span className="gradient-text block">Green Revolution</span>
               </h2>
@@ -71,12 +71,12 @@ export default function AboutSection() {
                 { icon: Users, title: "Expert Team", desc: "Certified engineers" },
                 { icon: Globe, title: "Pan-India Reach", desc: "Serving across states" },
               ].map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="flex items-start gap-3 p-3 rounded-xl hover:bg-brand-blue/5 transition-colors duration-200">
+                <div key={title} className="flex items-start gap-3 p-3 rounded-xl hover:bg-brand-blue/5">
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-blue to-brand-blue-light flex items-center justify-center shrink-0">
                     <Icon className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-brand-navy text-sm">{title}</p>
+                    <p className="font-semibold text-white text-sm">{title}</p>
                     <p className="text-xs text-muted-foreground">{desc}</p>
                   </div>
                 </div>

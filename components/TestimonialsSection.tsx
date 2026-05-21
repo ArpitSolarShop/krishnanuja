@@ -55,7 +55,7 @@ export default function TestimonialsSection() {
           <Badge className="bg-brand-gold/10 text-brand-gold-dark border-brand-gold/20 mb-4">
             Testimonials
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
             Trusted by <span className="gradient-text">1000+ Customers</span>
           </h2>
           <p className="text-lg text-muted-foreground">
@@ -68,7 +68,7 @@ export default function TestimonialsSection() {
           {testimonials.map((testimonial, i) => (
             <Card
               key={i}
-              className="group card-3d border-brand-blue/5 bg-card/80 backdrop-blur-sm hover:border-brand-gold/20 transition-all duration-500"
+              className="group  border-brand-blue/5 bg-card/80 backdrop-blur-sm hover:border-brand-gold/20"
             >
               <CardContent className="p-6 space-y-4">
                 {/* Quote icon */}
@@ -94,7 +94,7 @@ export default function TestimonialsSection() {
                     {testimonial.name.charAt(0)}
                   </div>
                   <div>
-                    <p className="font-semibold text-sm text-brand-navy">{testimonial.name}</p>
+                    <p className="font-semibold text-sm text-white">{testimonial.name}</p>
                     <p className="text-xs text-muted-foreground">{testimonial.role}</p>
                   </div>
                 </div>
@@ -106,14 +106,14 @@ export default function TestimonialsSection() {
         {/* Overall rating */}
         <div className="mt-16 text-center">
           <div className="inline-flex items-center gap-4 glass rounded-2xl px-8 py-4">
-            <div className="text-4xl font-bold text-brand-navy">4.9</div>
+            <div className="text-4xl font-bold text-white">4.9</div>
             <div className="flex gap-1">
               {[1, 2, 3, 4, 5].map((i) => (
                 <Star key={i} className="w-5 h-5 fill-brand-gold text-brand-gold" />
               ))}
             </div>
             <div className="text-sm text-muted-foreground">
-              Based on <span className="font-semibold text-brand-navy">500+</span> reviews
+              Based on <span className="font-semibold text-white">500+</span> reviews
             </div>
           </div>
         </div>

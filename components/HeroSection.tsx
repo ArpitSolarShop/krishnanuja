@@ -6,49 +6,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Zap, Shield, TrendingDown, Sun } from "lucide-react";
-import Solar3DShowcase from "./Solar3DShowcase";
-
-
-function CountUpNumber({ target, suffix = "", prefix = "" }: { target: number; suffix?: string; prefix?: string }) {
-  const [count, setCount] = useState(0);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.3 }
-    );
-    const el = document.getElementById(`counter-${target}`);
-    if (el) observer.observe(el);
-    return () => observer.disconnect();
-  }, [target]);
-
-  useEffect(() => {
-    if (!visible) return;
-    const duration = 2000;
-    const steps = 60;
-    const increment = target / steps;
-    let current = 0;
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
-    return () => clearInterval(timer);
-  }, [visible, target]);
-
-  return (
-    <span id={`counter-${target}`} className="tabular-nums">
-      {prefix}{count.toLocaleString("en-IN")}{suffix}
-    </span>
-  );
-}
 
 export default function HeroSection() {
   return (
@@ -68,14 +25,14 @@ export default function HeroSection() {
       </div>
 
       {/* Floating decorative orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-brand-gold/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-brand-blue-light/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "3s" }} />
+      <div className="absolute top-20 left-10 w-72 h-72 bg-brand-gold/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-brand-blue-light/10 rounded-full blur-3xl" style={{ animationDelay: "3s" }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left content */}
-          <div className="space-y-8 animate-fade-in-up">
-            <Badge className="bg-white/15 text-white border-white/20 backdrop-blur-sm text-sm px-4 py-1.5 gap-2">
+          <div className="space-y-8">
+            <Badge className="bg-brand-navy/10 text-white border-brand-navy/20 backdrop-blur-sm text-sm px-4 py-1.5 gap-2">
               <Sun className="w-4 h-4 text-brand-gold-light" />
               Solar EPC Services
             </Badge>
@@ -90,7 +47,7 @@ export default function HeroSection() {
               </span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-white/80 max-w-lg leading-relaxed">
+            <p className="text-lg sm:text-xl text-white/70 max-w-lg leading-relaxed">
               Krishnanuja Renewables delivers end-to-end solar solutions for homes,
               businesses, and industries. Save up to 90% on electricity bills with
               India&apos;s trusted Solar EPC partner.
@@ -100,17 +57,17 @@ export default function HeroSection() {
               <Link href="/quote">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-brand-gold to-brand-gold-light text-brand-navy font-semibold text-lg px-8 py-6 shadow-xl shadow-brand-gold/30 hover:shadow-brand-gold/50 transition-all duration-300 hover:scale-105 group"
+                  className="bg-gradient-to-r from-brand-gold to-brand-gold-light text-white font-semibold text-lg px-8 py-6 shadow-xl shadow-brand-gold/30 hover:shadow-brand-gold/50 group"
                 >
                   Get Free Consultation
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-5 h-5 ml-2 group-" />
                 </Button>
               </Link>
               <Link href="#services">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 font-medium text-lg px-8 py-6 backdrop-blur-sm"
+                  className="border-white/20 text-white hover:bg-white/5 font-medium text-lg px-8 py-6 backdrop-blur-sm"
                 >
                   Explore Services
                 </Button>
@@ -124,8 +81,8 @@ export default function HeroSection() {
                 { icon: TrendingDown, text: "90% Bill Savings" },
                 { icon: Zap, text: "Fast Installation" },
               ].map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-2 text-white/70">
-                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm">
+                <div key={text} className="flex items-center gap-2 text-white/60">
+                  <div className="w-8 h-8 rounded-full bg-brand-navy/10 flex items-center justify-center backdrop-blur-sm">
                     <Icon className="w-4 h-4 text-brand-gold-light" />
                   </div>
                   <span className="text-sm font-medium">{text}</span>
@@ -134,9 +91,15 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Interactive 3D Solar Showcase */}
+          {/* Right Static Image */}
           <div className="hidden lg:block w-full h-[600px] relative z-20">
-            <Solar3DShowcase />
+            <Image
+              src="/solar-farm.png"
+              alt="Solar Showcase"
+              fill
+              className="object-cover rounded-3xl shadow-2xl"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
           </div>
         </div>
 
@@ -150,12 +113,12 @@ export default function HeroSection() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="glass rounded-2xl p-5 text-center bg-white/10 border-white/15 hover:bg-white/15 transition-all duration-300 hover:scale-105"
+              className="glass rounded-2xl p-5 text-center bg-[#030712] border-white/10 hover:bg-white/5"
             >
               <p className="text-3xl sm:text-4xl font-bold text-white">
-                <CountUpNumber target={stat.value} suffix={stat.suffix} />
+                <span className="tabular-nums">{stat.value.toLocaleString("en-IN")}{stat.suffix}</span>
               </p>
-              <p className="text-sm text-white/60 mt-1 font-medium">{stat.label}</p>
+              <p className="text-sm text-white/50 mt-1 font-medium">{stat.label}</p>
             </div>
           ))}
         </div>

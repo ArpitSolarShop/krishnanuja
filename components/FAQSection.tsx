@@ -64,7 +64,7 @@ export default function FAQSection() {
             <HelpCircle className="w-3 h-3 mr-1" />
             FAQ
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-navy leading-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
             Frequently Asked
             <span className="gradient-text"> Questions</span>
           </h2>
@@ -79,9 +79,9 @@ export default function FAQSection() {
             <AccordionItem
               key={i}
               value={`item-${i}`}
-              className="border border-brand-blue/8 rounded-xl px-6 bg-card/50 backdrop-blur-sm hover:border-brand-blue/15 transition-colors duration-200 data-[state=open]:border-brand-blue/20 data-[state=open]:shadow-lg data-[state=open]:shadow-brand-blue/5"
+              className="border border-brand-blue/8 rounded-xl px-6 bg-card/50 backdrop-blur-sm hover:border-brand-blue/15 data-[state=open]:border-brand-blue/20 data-[state=open]:shadow-lg data-[state=open]:shadow-brand-blue/5"
             >
-              <AccordionTrigger className="text-left font-semibold text-brand-navy hover:text-brand-blue py-5 text-base">
+              <AccordionTrigger className="text-left font-semibold text-white hover:text-brand-blue py-5 text-base">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed pb-5">

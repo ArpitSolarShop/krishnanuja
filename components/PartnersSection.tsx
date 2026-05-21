@@ -21,7 +21,7 @@ export default function PartnersSection() {
             <Handshake className="w-3 h-3 mr-1" />
             Premium Brands
           </Badge>
-          <h2 className="text-2xl sm:text-3xl font-bold text-brand-navy">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white">
             Products We <span className="gradient-text">Provide</span>
           </h2>
           <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
@@ -36,14 +36,14 @@ export default function PartnersSection() {
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
           
-          <div className="flex animate-marquee gap-12 items-center">
+          <div className="flex gap-12 items-center">
             {[...partners, ...partners, ...partners, ...partners, ...partners].map((partner, i) => (
               <div
                 key={`${partner.name}-${i}`}
-                className="shrink-0 px-8 py-4 rounded-xl border border-brand-blue/5 bg-card/50 hover:bg-brand-blue/5 hover:border-brand-blue/15 transition-all duration-300 group"
+                className="shrink-0 px-8 py-4 rounded-xl border border-brand-blue/5 bg-card/50 hover:bg-brand-blue/5 hover:border-brand-blue/15 group"
               >
                 <p
-                  className="text-lg font-bold whitespace-nowrap opacity-40 group-hover:opacity-80 transition-opacity duration-300"
+                  className="text-lg font-bold whitespace-nowrap opacity-40 group-hover:opacity-80"
                   style={{ color: partner.color }}
                 >
                   {partner.name}
