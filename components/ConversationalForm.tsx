@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, ArrowLeft, Check, CornerDownLeft, Sparkles, MessageCircle } from 'lucide-react';
 
 const QUESTIONS = [
@@ -253,7 +253,7 @@ export default function ConversationalForm() {
       case 'tel':
         return (
           <input
-            ref={inputRef}
+            ref={inputRef as React.RefObject<HTMLInputElement>}
             type={currentQuestion.type}
             value={answers[currentQuestion.id] || ''}
             onChange={(e) => handleInputChange(e.target.value)}
@@ -264,7 +264,7 @@ export default function ConversationalForm() {
       case 'textarea':
         return (
           <textarea
-            ref={inputRef}
+            ref={inputRef as React.RefObject<HTMLTextAreaElement>}
             value={answers[currentQuestion.id] || ''}
             onChange={(e) => handleInputChange(e.target.value)}
             placeholder={placeholderCombo}
