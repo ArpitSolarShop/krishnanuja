@@ -24,35 +24,59 @@ export async function POST(req: Request) {
       },
     });
 
-    // Save to NeoDove as backup
+    // Save to NeoDove as backup with Auto-Failover & Retries
     try {
-      // NeoDove usually expects a clean 10-digit mobile number
+      // 1. Sanitize Phone
       const cleanPhone = data.phone.replace(/\D/g, '');
       const last10Digits = cleanPhone.slice(-10);
-      const mobileNumber = Number(last10Digits);
+      const mobileNumber = last10Digits.length === 10 ? Number(last10Digits) : 9999999999;
       
-      const neoRes = await fetch('https://6513442b-f879-45c9-be19-944f45086e60.neodove.com/integration/custom/1e376832-40d7-47df-bb80-682287d9e15a/leads', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: data.name,
-          mobile: mobileNumber || 0,
-          email: "",
-          detail1: `Bill: ${data.bill} | Timeline: ${data.timeline}`,
-          detail2: `Address: ${data.address}`
-        })
-      });
+      const payload = {
+        name: data.name || "Unknown Lead",
+        mobile: mobileNumber,
+        email: "no-reply@krishnanujarenewables.com", // Valid format to bypass CRM regex validation
+        detail1: `Bill: ${data.bill} | Timeline: ${data.timeline}`,
+        detail2: `Address: ${data.address || 'Not provided'}`
+      };
 
+      // 2. Fetch with Timeout to prevent serverless function hanging
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+      let neoRes = await fetch('https://6513442b-f879-45c9-be19-944f45086e60.neodove.com/integration/custom/1e376832-40d7-47df-bb80-682287d9e15a/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+
+      // 3. Auto-Retry with string-based payload if rejected
       if (!neoRes.ok) {
-        console.error('NeoDove rejected the payload:', await neoRes.text());
+        console.warn('NeoDove First Attempt Rejected. Retrying with String payload...', await neoRes.text());
+        
+        const fallbackPayload = { ...payload, mobile: String(data.phone) };
+        const controller2 = new AbortController();
+        const timeoutId2 = setTimeout(() => controller2.abort(), 5000);
+        
+        neoRes = await fetch('https://6513442b-f879-45c9-be19-944f45086e60.neodove.com/integration/custom/1e376832-40d7-47df-bb80-682287d9e15a/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(fallbackPayload),
+          signal: controller2.signal
+        });
+        clearTimeout(timeoutId2);
+        
+        if (!neoRes.ok) {
+           console.error('NeoDove Second Attempt Failed:', await neoRes.text());
+        } else {
+           console.log('NeoDove Success on Fallback:', await neoRes.text());
+        }
       } else {
         console.log('NeoDove Success:', await neoRes.text());
       }
     } catch (neodoveError) {
-      console.error('NeoDove backup failed:', neodoveError);
-      // We don't throw here to ensure the user still gets a success message if Supabase worked
+      console.error('NeoDove backup critically failed (Network/Timeout):', neodoveError);
     }
 
     return NextResponse.json({ success: true, quoteRequest }, { status: 201 });
