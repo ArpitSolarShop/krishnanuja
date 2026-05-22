@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       const payload = {
         name: data.name || "Unknown Lead",
         mobile: mobileNumber,
-        email: "no-reply@krishnanujarenewables.com", // Valid format to bypass CRM regex validation
+        email: "info@neodove.com", // Exact email from known-working curl command
         detail1: `Bill: ${data.bill} | Timeline: ${data.timeline}`,
         detail2: `Address: ${data.address || 'Not provided'}`
       };
