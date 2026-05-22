@@ -26,22 +26,30 @@ export async function POST(req: Request) {
 
     // Save to NeoDove as backup
     try {
-      // NeoDove expects mobile as a number in the example
-      const mobileNumber = Number(data.phone.replace(/\D/g, ''));
+      // NeoDove usually expects a clean 10-digit mobile number
+      const cleanPhone = data.phone.replace(/\D/g, '');
+      const last10Digits = cleanPhone.slice(-10);
+      const mobileNumber = Number(last10Digits);
       
-      await fetch('https://6513442b-f879-45c9-be19-944f45086e60.neodove.com/integration/custom/1e376832-40d7-47df-bb80-682287d9e15a/leads', {
+      const neoRes = await fetch('https://6513442b-f879-45c9-be19-944f45086e60.neodove.com/integration/custom/1e376832-40d7-47df-bb80-682287d9e15a/leads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: data.name,
-          mobile: isNaN(mobileNumber) ? data.phone : mobileNumber, // Send numeric if possible, else string
+          mobile: mobileNumber || 0,
           email: "",
           detail1: `Bill: ${data.bill} | Timeline: ${data.timeline}`,
           detail2: `Address: ${data.address}`
         })
       });
+
+      if (!neoRes.ok) {
+        console.error('NeoDove rejected the payload:', await neoRes.text());
+      } else {
+        console.log('NeoDove Success:', await neoRes.text());
+      }
     } catch (neodoveError) {
       console.error('NeoDove backup failed:', neodoveError);
       // We don't throw here to ensure the user still gets a success message if Supabase worked
