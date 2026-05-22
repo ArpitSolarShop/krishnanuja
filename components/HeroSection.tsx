@@ -10,29 +10,29 @@ export default function HeroSection() {
     <section id="home" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex flex-col items-center bg-background">
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
         
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground tracking-tighter leading-tight">
+        <h1 className="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-bold text-foreground tracking-tighter leading-tight">
           Power your future. <br className="hidden sm:block" />
           <span className="text-muted-foreground">With solar energy.</span>
         </h1>
 
-        <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto font-medium">
+        <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-medium px-2">
           Krishnanuja Renewables delivers end-to-end solar solutions. Save up to 90% on electricity bills with India&apos;s trusted partner.
         </p>
 
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
-          <Link href="/quote">
+        <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 pt-4 w-full sm:w-auto">
+          <Link href="/quote" className="w-full sm:w-auto flex">
             <Button
               size="lg"
-              className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-6 h-14 transition-colors"
+              className="w-full sm:w-auto rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-base sm:text-lg px-8 py-6 h-14 transition-colors"
             >
               Get Free Consultation
             </Button>
           </Link>
-          <Link href="#services">
+          <Link href="#services" className="w-full sm:w-auto flex">
             <Button
               size="lg"
               variant="ghost"
-              className="rounded-full text-primary hover:bg-primary/10 text-lg px-8 py-6 h-14 group transition-colors"
+              className="w-full sm:w-auto rounded-full text-primary hover:bg-primary/10 text-base sm:text-lg px-8 py-6 h-14 group transition-colors"
             >
               Explore Services
               <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />

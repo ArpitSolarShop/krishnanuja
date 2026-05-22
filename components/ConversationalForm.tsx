@@ -341,7 +341,7 @@ export default function ConversationalForm() {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col justify-center max-w-4xl w-full mx-auto px-6 md:px-12 py-10 z-10">
+      <main className="flex-1 flex flex-col justify-center max-w-4xl w-full mx-auto px-4 md:px-12 py-6 md:py-10 z-10">
         
         {/* Animated Question Container */}
         <div 
@@ -363,10 +363,10 @@ export default function ConversationalForm() {
 
           {/* Question Prompts (Bilingual) */}
           <div className="mb-10">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4 leading-[1.2]">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4 leading-[1.2]">
               {parseString(currentQuestion.prompt.en, 'en')}
             </h2>
-            <h3 className="text-xl md:text-3xl font-medium tracking-tight text-muted-foreground leading-[1.3]">
+            <h3 className="text-lg sm:text-xl md:text-3xl font-medium tracking-tight text-muted-foreground leading-[1.3]">
               {parseString(currentQuestion.prompt.hi, 'hi')}
             </h3>
           </div>
