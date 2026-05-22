@@ -119,17 +119,20 @@ export default function ConversationalForm() {
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
   const currentQuestion = QUESTIONS[currentStep];
 
-  const validateCurrentStep = useCallback(() => {
-    if (currentQuestion.required && !answers[currentQuestion.id]) {
+  const validateCurrentStep = useCallback((overrideValue?: string) => {
+    const valueToCheck = overrideValue !== undefined ? overrideValue : answers[currentQuestion.id];
+    if (currentQuestion.required && !valueToCheck) {
       setError(`${UI_STRINGS.en.error_required} / ${UI_STRINGS.hi.error_required}`);
       return false;
     }
     return true;
   }, [currentQuestion, answers]);
 
-  const handleNext = useCallback(async () => {
+  const handleNext = useCallback(async (eOrOverride?: React.MouseEvent | string) => {
     if (isAnimating || isSubmitting) return;
-    if (!validateCurrentStep()) return;
+    
+    const overrideValue = typeof eOrOverride === 'string' ? eOrOverride : undefined;
+    if (!validateCurrentStep(overrideValue)) return;
 
     if (currentStep === QUESTIONS.length - 1) {
       setIsSubmitting(true);
@@ -284,7 +287,7 @@ export default function ConversationalForm() {
                   key={option.value}
                   onClick={() => {
                     handleInputChange(option.value);
-                    setTimeout(() => handleNext(), 300); // Auto-advance on choice
+                    setTimeout(() => handleNext(option.value), 300); // Auto-advance on choice with value override
                   }}
                   className={`group flex items-center justify-between w-full p-5 rounded-2xl border text-left transition-all duration-200 ${
                     isSelected 
