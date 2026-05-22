@@ -1,13 +1,11 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { HelpCircle } from "lucide-react";
 
 const faqs = [
   {
@@ -54,37 +52,29 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section id="faq" className="py-24 lg:py-32 relative">
-      <div className="absolute inset-0 solar-grid-pattern" />
-      
+    <section id="faq" className="py-32 relative bg-background border-t border-border/50">
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <Badge className="bg-brand-blue/10 text-brand-blue border-brand-blue/20 mb-4">
-            <HelpCircle className="w-3 h-3 mr-1" />
-            FAQ
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
-            Frequently Asked
-            <span className="gradient-text"> Questions</span>
+        
+        <div className="text-center mb-20 space-y-6">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight">
+            Common questions.
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-xl text-muted-foreground font-medium">
             Everything you need to know about going solar with Krishnanuja Renewables.
           </p>
         </div>
 
-        {/* FAQ Accordion */}
-        <Accordion type="single" collapsible className="space-y-3">
+        <Accordion type="single" collapsible className="space-y-0">
           {faqs.map((faq, i) => (
             <AccordionItem
               key={i}
               value={`item-${i}`}
-              className="border border-brand-blue/8 rounded-xl px-6 bg-card/50 backdrop-blur-sm hover:border-brand-blue/15 data-[state=open]:border-brand-blue/20 data-[state=open]:shadow-lg data-[state=open]:shadow-brand-blue/5"
+              className="border-b border-border/50"
             >
-              <AccordionTrigger className="text-left font-semibold text-white hover:text-brand-blue py-5 text-base">
+              <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-6 text-xl hover:no-underline transition-colors">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+              <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-lg font-medium">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

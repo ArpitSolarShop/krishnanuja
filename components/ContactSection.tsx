@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { 
-  MapPin, Phone, Mail, Clock, Send, 
-  CheckCircle, ArrowRight, Zap, Sun
+  MapPin, Phone, Mail, Clock, 
+  CheckCircle, ArrowRight
 } from "lucide-react";
 
 export default function ContactSection() {
@@ -18,109 +18,95 @@ export default function ContactSection() {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
-
-
   return (
-    <section id="contact" className="py-32 relative bg-[#030712] overflow-hidden selection:bg-brand-gold/30 selection:text-brand-gold-light">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-blue/10 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-gold/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 pointer-events-none mix-blend-overlay" />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-brand-gold-light text-sm font-medium mb-6">
-            <Zap className="w-4 h-4" /> Let's Talk Power
-          </div>
-          <h2 className="text-5xl md:text-7xl font-light tracking-tighter text-white mb-6 font-space">
-            Power Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold-light to-brand-gold">Future.</span>
+    <section id="contact" className="py-32 relative bg-background border-t border-border/50">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
+          <h2 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
+            Let&apos;s talk power.
           </h2>
-          <p className="text-xl text-white/50 font-light">
-            Ready to reduce your energy bills? Connect with our experts for a personalized solar consultation today.
+          <p className="text-xl text-muted-foreground font-medium">
+            Connect with our experts for a personalized solar consultation today.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           
           {/* Left Column: Form */}
-          <div className="relative group">
-            <div className="absolute -inset-px bg-gradient-to-b from-white/10 to-transparent rounded-[2rem] blur-[2px] opacity-50 group-hover:opacity-100" />
-            <div className="relative h-full p-8 md:p-12 rounded-[2rem] bg-neutral-950/80 border border-white/10 backdrop-blur-xl">
+          <div className="relative">
+            <div className="relative h-full p-8 md:p-12 rounded-[2rem] bg-secondary/80 border border-border/50">
               {submitted ? (
                 <div className="h-full flex flex-col items-center justify-center text-center space-y-6 py-20">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-green-500/20 blur-xl rounded-full" />
-                    <CheckCircle className="w-16 h-16 text-green-400 relative z-10" />
-                  </div>
-                  <h3 className="text-3xl font-light tracking-tight text-white font-space">Quote Requested</h3>
-                  <p className="text-white/50 max-w-sm text-lg">
-                    Thank you for reaching out! Our energy consultants will contact you shortly.
+                  <CheckCircle className="w-16 h-16 text-primary" />
+                  <h3 className="text-3xl font-bold tracking-tight text-foreground">Quote Requested</h3>
+                  <p className="text-muted-foreground max-w-sm text-lg font-medium">
+                    Thank you for reaching out! Our consultants will contact you shortly.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-8">
                   <div className="grid sm:grid-cols-2 gap-8">
                     <div className="space-y-2 group/input">
-                      <label className="text-sm font-medium text-white/50 group-focus-within/input:text-brand-gold-light uppercase tracking-wider text-xs">Name</label>
+                      <label className="text-sm font-semibold text-foreground uppercase tracking-wider text-xs">Name</label>
                       <input
                         required
                         type="text"
                         placeholder="John Doe"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-transparent border-b border-white/20 pb-3 text-lg text-white placeholder:text-white/20 focus:border-brand-gold-light outline-none"
+                        className="w-full bg-transparent border-b border-border/80 pb-3 text-lg text-foreground placeholder:text-muted-foreground/50 focus:border-primary transition-colors outline-none font-medium"
                       />
                     </div>
                     <div className="space-y-2 group/input">
-                      <label className="text-sm font-medium text-white/50 group-focus-within/input:text-brand-gold-light uppercase tracking-wider text-xs">Phone</label>
+                      <label className="text-sm font-semibold text-foreground uppercase tracking-wider text-xs">Phone</label>
                       <input
                         required
                         type="tel"
                         placeholder="+91 9044555572"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full bg-transparent border-b border-white/20 pb-3 text-lg text-white placeholder:text-white/20 focus:border-brand-gold-light outline-none"
+                        className="w-full bg-transparent border-b border-border/80 pb-3 text-lg text-foreground placeholder:text-muted-foreground/50 focus:border-primary transition-colors outline-none font-medium"
                       />
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-8">
                     <div className="space-y-2 group/input">
-                      <label className="text-sm font-medium text-white/50 group-focus-within/input:text-brand-gold-light uppercase tracking-wider text-xs">Email</label>
+                      <label className="text-sm font-semibold text-foreground uppercase tracking-wider text-xs">Email</label>
                       <input
                         type="email"
                         placeholder="john@example.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-transparent border-b border-white/20 pb-3 text-lg text-white placeholder:text-white/20 focus:border-brand-gold-light outline-none"
+                        className="w-full bg-transparent border-b border-border/80 pb-3 text-lg text-foreground placeholder:text-muted-foreground/50 focus:border-primary transition-colors outline-none font-medium"
                       />
                     </div>
                     <div className="space-y-2 group/input">
-                      <label className="text-sm font-medium text-white/50 group-focus-within/input:text-brand-gold-light uppercase tracking-wider text-xs">City</label>
+                      <label className="text-sm font-semibold text-foreground uppercase tracking-wider text-xs">City</label>
                       <input
                         required
                         type="text"
                         placeholder="Varanasi"
                         value={formData.city}
                         onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                        className="w-full bg-transparent border-b border-white/20 pb-3 text-lg text-white placeholder:text-white/20 focus:border-brand-gold-light outline-none"
+                        className="w-full bg-transparent border-b border-border/80 pb-3 text-lg text-foreground placeholder:text-muted-foreground/50 focus:border-primary transition-colors outline-none font-medium"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-4">
-                    <label className="text-sm font-medium text-white/50 uppercase tracking-wider text-xs block">Requirement</label>
+                    <label className="text-sm font-semibold text-foreground uppercase tracking-wider text-xs block">Requirement</label>
                     <div className="grid grid-cols-3 gap-3">
                       {["residential", "commercial", "industrial"].map((type) => (
                         <button
                           key={type}
                           type="button"
                           onClick={() => setFormData({ ...formData, systemType: type })}
-                          className={`py-3 px-4 rounded-xl text-sm font-medium capitalize border ${
- formData.systemType === type
- ? "bg-brand-gold/10 text-brand-gold-light border-brand-gold/30 shadow-[0_0_20px_rgba(201,147,58,0.1)]"
- : "bg-white/5 text-white/40 border-transparent hover:bg-white/10 hover:text-white/80"
- }`}
+                          className={`py-3 px-4 rounded-2xl text-sm font-semibold capitalize border transition-all ${
+                            formData.systemType === type
+                            ? "bg-primary text-primary-foreground border-primary shadow-md"
+                            : "bg-background text-muted-foreground border-border/50 hover:border-border hover:text-foreground"
+                          }`}
                         >
                           {type}
                         </button>
@@ -129,24 +115,21 @@ export default function ContactSection() {
                   </div>
 
                   <div className="space-y-2 group/input">
-                    <label className="text-sm font-medium text-white/50 group-focus-within/input:text-brand-gold-light uppercase tracking-wider text-xs">How can we help?</label>
+                    <label className="text-sm font-semibold text-foreground uppercase tracking-wider text-xs">How can we help?</label>
                     <textarea
                       placeholder="Tell us about your energy needs..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       rows={2}
-                      className="w-full bg-transparent border-b border-white/20 pb-3 text-lg text-white placeholder:text-white/20 focus:border-brand-gold-light outline-none resize-none"
+                      className="w-full bg-transparent border-b border-border/80 pb-3 text-lg text-foreground placeholder:text-muted-foreground/50 focus:border-primary transition-colors outline-none resize-none font-medium"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full group relative overflow-hidden rounded-xl bg-neutral-950 text-black font-semibold text-lg py-5 -[1.02] active:scale-[0.98]"
+                    className="w-full group rounded-full bg-primary text-primary-foreground font-semibold text-lg py-5 hover:bg-primary/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
                   >
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      Send Request <ArrowRight className="w-5 h-5 group-" />
-                    </span>
-                    <div className="absolute inset-0 bg-brand-gold-light transform scale-x-0 group- origin-left" />
+                    Send Request <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </form>
               )}
@@ -156,10 +139,10 @@ export default function ContactSection() {
           {/* Right Column: Bento Grid Contact Info */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 h-full">
             {/* Office Block */}
-            <div className="sm:col-span-2 p-8 rounded-[2rem] bg-gradient-to-br from-white/5 to-white/0 border border-white/10 hover:bg-white/10">
-              <MapPin className="w-8 h-8 text-brand-gold-light mb-6 opacity-80" />
-              <h4 className="text-2xl font-light text-white mb-2 font-space">Head Office</h4>
-              <p className="text-white/50 leading-relaxed font-light">
+            <div className="sm:col-span-2 p-8 rounded-[2rem] bg-secondary/50 border border-border/50 hover:bg-secondary/80 transition-colors">
+              <MapPin className="w-8 h-8 text-primary mb-6" />
+              <h4 className="text-2xl font-bold text-foreground mb-2">Head Office</h4>
+              <p className="text-muted-foreground leading-relaxed font-medium">
                 SH16/114-15-K2, Sharvodaya Nagar<br/>
                 Kadipur, Shivpur<br/>
                 Varanasi 221003, Uttar Pradesh
@@ -167,38 +150,37 @@ export default function ContactSection() {
             </div>
 
             {/* Warehouse Block */}
-            <div className="p-8 rounded-[2rem] bg-gradient-to-br from-white/5 to-white/0 border border-white/10 hover:bg-white/10">
-              <Sun className="w-8 h-8 text-brand-blue-light mb-6 opacity-80" />
-              <h4 className="text-xl font-light text-white mb-2 font-space">Warehouse</h4>
-              <p className="text-white/50 text-sm font-light">
+            <div className="p-8 rounded-[2rem] bg-secondary/50 border border-border/50 hover:bg-secondary/80 transition-colors">
+              <h4 className="text-xl font-bold text-foreground mb-2">Warehouse</h4>
+              <p className="text-muted-foreground text-sm font-medium">
                 SH15/243, Bharlai<br/>
                 Shivpur, Varanasi
               </p>
             </div>
 
             {/* Hours Block */}
-            <div className="p-8 rounded-[2rem] bg-gradient-to-br from-white/5 to-white/0 border border-white/10 hover:bg-white/10">
-              <Clock className="w-8 h-8 text-brand-blue-light mb-6 opacity-80" />
-              <h4 className="text-xl font-light text-white mb-2 font-space">Hours</h4>
-              <p className="text-white/50 text-sm font-light">
+            <div className="p-8 rounded-[2rem] bg-secondary/50 border border-border/50 hover:bg-secondary/80 transition-colors">
+              <Clock className="w-6 h-6 text-primary mb-4" />
+              <h4 className="text-xl font-bold text-foreground mb-2">Hours</h4>
+              <p className="text-muted-foreground text-sm font-medium">
                 Mon - Sat: 9 AM - 7 PM<br/>
                 Sunday: Closed
               </p>
             </div>
 
             {/* Contact Direct */}
-            <div className="sm:col-span-2 p-8 rounded-[2rem] bg-brand-gold/10 border border-brand-gold/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:bg-brand-gold/15">
+            <div className="sm:col-span-2 p-8 rounded-[2rem] bg-foreground text-background flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:bg-foreground/90 transition-colors">
               <div>
-                <h4 className="text-2xl font-light text-brand-gold-light mb-2 font-space">Direct Contact</h4>
-                <p className="text-brand-gold-light/60 font-light">Available on WhatsApp & Phone</p>
+                <h4 className="text-2xl font-bold mb-2">Direct Contact</h4>
+                <p className="text-background/70 font-medium">Available on WhatsApp & Phone</p>
               </div>
-              <div className="flex flex-col gap-2">
-                <a href="tel:+919044555572" className="flex items-center gap-3 text-white hover:text-brand-gold-light text-xl font-light">
-                  <Phone className="w-5 h-5 opacity-50" />
+              <div className="flex flex-col gap-3">
+                <a href="tel:+919044555572" className="flex items-center gap-3 text-background hover:text-primary-foreground text-xl font-medium transition-colors">
+                  <Phone className="w-5 h-5 opacity-80" />
                   +91 9044555572
                 </a>
-                <a href="mailto:info@krishnanuja.com" className="flex items-center gap-3 text-white/50 hover:text-white text-sm">
-                  <Mail className="w-4 h-4 opacity-50" />
+                <a href="mailto:info@krishnanuja.com" className="flex items-center gap-3 text-background/70 hover:text-background text-sm transition-colors">
+                  <Mail className="w-4 h-4 opacity-80" />
                   info@krishnanuja.com
                 </a>
               </div>

@@ -12,7 +12,7 @@ export const updateSession = (request: NextRequest) => {
     },
   });
 
-  const supabase = createServerClient(
+  createServerClient(
     supabaseUrl!,
     supabaseKey!,
     {

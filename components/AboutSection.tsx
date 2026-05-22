@@ -1,88 +1,69 @@
 "use client";
 
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Award, Users, Globe } from "lucide-react";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-24 lg:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 section-gradient-blue" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl" />
-      
+    <section id="about" className="py-32 relative bg-background overflow-hidden border-t border-border/50">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image side */}
-          <div className="relative group">
-            <div className="absolute -inset-4 bg-gradient-to-r from-brand-blue/20 to-brand-gold/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-75" />
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-brand-blue/10">
-              <Image
-                src="/solar-farm.png"
-                alt="Krishnanuja Renewables Solar Farm"
-                width={640}
-                height={480}
-                className="object-cover w-full h-[400px] lg:h-[500px] group-"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="glass rounded-xl p-4 flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-brand-gold to-brand-gold-light rounded-xl flex items-center justify-center shrink-0">
-                    <Award className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white text-sm">Trusted Solar EPC Partner</p>
-                    <p className="text-xs text-brand-blue-light">ISO Certified • MNRE Approved</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          
           {/* Content side */}
-          <div className="space-y-8">
-            <div>
-              <Badge className="bg-brand-blue/10 text-brand-blue border-brand-blue/20 mb-4">
-                About Krishnanuja
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                Powering India&apos;s
-                <span className="gradient-text block">Green Revolution</span>
+          <div className="space-y-10 order-2 lg:order-1">
+            <div className="space-y-4">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-tight">
+                Powering India&apos;s <br /> green revolution.
               </h2>
             </div>
 
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Krishnanuja Renewables Pvt. Ltd. is a leading Solar EPC (Engineering, 
-              Procurement &amp; Construction) company committed to driving India&apos;s transition 
-              to clean, renewable energy. With years of expertise, we deliver turnkey solar 
-              solutions that transform how homes and businesses power their future.
-            </p>
-
-            <p className="text-muted-foreground leading-relaxed">
-              Our team of skilled engineers and technicians leverages cutting-edge technology 
-              and premium components to design, supply, and install solar power systems that 
-              maximize energy generation and long-term savings.
+            <p className="text-xl text-muted-foreground leading-relaxed font-medium">
+              Krishnanuja Renewables Pvt. Ltd. is a leading Solar EPC company committed to driving India&apos;s transition to clean, renewable energy. We deliver turnkey solar solutions that transform how homes and businesses power their future.
             </p>
 
             {/* Features */}
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-10 pt-8">
               {[
                 { icon: CheckCircle, title: "End-to-End EPC", desc: "Design to commissioning" },
                 { icon: Award, title: "Premium Quality", desc: "Tier-1 components only" },
                 { icon: Users, title: "Expert Team", desc: "Certified engineers" },
                 { icon: Globe, title: "Pan-India Reach", desc: "Serving across states" },
               ].map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="flex items-start gap-3 p-3 rounded-xl hover:bg-brand-blue/5">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-blue to-brand-blue-light flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
+                <div key={title} className="flex flex-col gap-3">
+                  <Icon className="w-8 h-8 text-primary" />
                   <div>
-                    <p className="font-semibold text-white text-sm">{title}</p>
-                    <p className="text-xs text-muted-foreground">{desc}</p>
+                    <h3 className="font-semibold text-foreground text-lg">{title}</h3>
+                    <p className="text-muted-foreground mt-1">{desc}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Image side */}
+          <div className="relative order-1 lg:order-2">
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-secondary shadow-2xl">
+              <Image
+                src="/solar-farm.png"
+                alt="Krishnanuja Renewables Solar Farm"
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            <div className="absolute -bottom-8 -left-8 bg-background p-6 rounded-3xl border border-border/50 shadow-2xl">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shrink-0">
+                  <Award className="w-7 h-7 text-primary-foreground" />
+                </div>
+                <div>
+                  <p className="font-bold text-foreground text-lg">Trusted EPC</p>
+                  <p className="text-sm text-muted-foreground">ISO Certified</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

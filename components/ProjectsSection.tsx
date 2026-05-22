@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Zap, Calendar } from "lucide-react";
 
 const projects = [
@@ -15,11 +13,11 @@ const projects = [
     image: "/commercial-solar.png",
   },
   {
-    title: "Residential Solar Complex",
+    title: "Residential Complex",
     location: "Sigra, Varanasi",
     capacity: "120 kW",
     year: "2024",
-    type: "Housing Society",
+    type: "Housing",
     image: "/hero-solar.png",
   },
   {
@@ -31,7 +29,7 @@ const projects = [
     image: "/solar-farm.png",
   },
   {
-    title: "Factory Rooftop Installation",
+    title: "Factory Rooftop",
     location: "MIDC, Lucknow",
     capacity: "200 kW",
     year: "2025",
@@ -42,71 +40,63 @@ const projects = [
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="py-24 lg:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 section-gradient-blue" />
-
+    <section id="projects" className="py-32 relative bg-background border-t border-border/50">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge className="bg-brand-blue/10 text-brand-blue border-brand-blue/20 mb-4">
-            Our Projects
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
-            Powering Success
-            <span className="gradient-text"> Across India</span>
+        
+        <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight">
+            Powering success.
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-xl text-muted-foreground font-medium">
             A showcase of our completed solar installations spanning residential,
             commercial, and utility-scale projects.
           </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
           {projects.map((project, i) => (
-            <Card
+            <div
               key={i}
-              className="group  border-brand-blue/5 bg-card/80 backdrop-blur-sm overflow-hidden hover:border-brand-blue/15"
+              className="group flex flex-col bg-background border border-border/50 rounded-3xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
             >
-              <CardContent className="p-0">
-                <div className="grid sm:grid-cols-2">
-                  {/* Image */}
-                  <div className="relative h-56 sm:h-full min-h-[240px] overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover group-"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-brand-navy/30" />
-                    <Badge className="absolute top-4 left-4 bg-brand-gold text-white border-0 font-semibold">
-                      {project.type}
-                    </Badge>
-                  </div>
+              <div className="relative h-64 sm:h-80 overflow-hidden bg-secondary">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-md text-foreground text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">
+                  {project.type}
+                </div>
+              </div>
 
-                  {/* Info */}
-                  <div className="p-6 flex flex-col justify-center space-y-4">
-                    <h3 className="text-xl font-bold text-white group-hover:text-brand-blue">
-                      {project.title}
-                    </h3>
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <MapPin className="w-4 h-4 text-brand-blue-light shrink-0" />
-                        {project.location}
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Zap className="w-4 h-4 text-brand-gold shrink-0" />
-                        Capacity: <span className="font-semibold text-white">{project.capacity}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Calendar className="w-4 h-4 text-brand-blue-light shrink-0" />
-                        Completed: {project.year}
-                      </div>
+              <div className="p-8 flex flex-col space-y-6">
+                <h3 className="text-2xl font-bold text-foreground tracking-tight">
+                  {project.title}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground text-sm font-medium">
+                      <MapPin className="w-4 h-4 text-primary" /> Location
                     </div>
+                    <p className="text-foreground text-sm">{project.location}</p>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground text-sm font-medium">
+                      <Zap className="w-4 h-4 text-primary" /> Capacity
+                    </div>
+                    <p className="text-foreground text-sm font-semibold">{project.capacity}</p>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground text-sm font-medium">
+                      <Calendar className="w-4 h-4 text-primary" /> Year
+                    </div>
+                    <p className="text-foreground text-sm">{project.year}</p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,9 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Star, Quote } from "lucide-react";
+import { Star } from "lucide-react";
 
 const testimonials = [
   {
@@ -46,74 +43,61 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section id="testimonials" className="py-24 lg:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 section-gradient-blue" />
-      
+    <section id="testimonials" className="py-32 relative bg-background border-t border-border/50">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <Badge className="bg-brand-gold/10 text-brand-gold-dark border-brand-gold/20 mb-4">
-            Testimonials
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
-            Trusted by <span className="gradient-text">1000+ Customers</span>
+        
+        <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight">
+            Trusted by 1000+.
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-xl text-muted-foreground font-medium">
             Here&apos;s what our customers have to say about their solar journey with us.
           </p>
         </div>
 
-        {/* Testimonials Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial, i) => (
-            <Card
+            <div
               key={i}
-              className="group  border-brand-blue/5 bg-card/80 backdrop-blur-sm hover:border-brand-gold/20"
+              className="group flex flex-col justify-between bg-secondary border border-border/50 rounded-3xl p-8 hover:shadow-xl transition-shadow duration-300"
             >
-              <CardContent className="p-6 space-y-4">
-                {/* Quote icon */}
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-gold/10 to-brand-gold-light/10 flex items-center justify-center">
-                  <Quote className="w-5 h-5 text-brand-gold" />
-                </div>
-
-                {/* Stars */}
+              <div className="space-y-6">
                 <div className="flex gap-1">
                   {Array.from({ length: testimonial.rating }).map((_, j) => (
-                    <Star key={j} className="w-4 h-4 fill-brand-gold text-brand-gold" />
+                    <Star key={j} className="w-5 h-5 fill-primary text-primary" />
                   ))}
                 </div>
-
-                {/* Text */}
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  &ldquo;{testimonial.text}&rdquo;
+                
+                <p className="text-foreground text-lg leading-relaxed font-medium">
+                  &quot;{testimonial.text}&quot;
                 </p>
+              </div>
 
-                {/* Author */}
-                <div className="flex items-center gap-3 pt-2 border-t border-brand-blue/5">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-blue to-brand-blue-light flex items-center justify-center text-white font-bold text-sm">
-                    {testimonial.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm text-white">{testimonial.name}</p>
-                    <p className="text-xs text-muted-foreground">{testimonial.role}</p>
-                  </div>
+              <div className="mt-8 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-lg">
+                  {testimonial.name.charAt(0)}
                 </div>
-              </CardContent>
-            </Card>
+                <div>
+                  <p className="font-semibold text-foreground text-base">{testimonial.name}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Overall rating */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-4 glass rounded-2xl px-8 py-4">
-            <div className="text-4xl font-bold text-white">4.9</div>
-            <div className="flex gap-1">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} className="w-5 h-5 fill-brand-gold text-brand-gold" />
-              ))}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Based on <span className="font-semibold text-white">500+</span> reviews
+        <div className="mt-20 text-center">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-6 bg-secondary/80 rounded-3xl px-10 py-6 border border-border/50">
+            <div className="text-6xl font-black text-foreground tracking-tighter">4.9</div>
+            <div className="flex flex-col items-center sm:items-start gap-1">
+              <div className="flex gap-1">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star key={i} className="w-6 h-6 fill-primary text-primary" />
+                ))}
+              </div>
+              <div className="text-muted-foreground font-medium">
+                Based on <span className="text-foreground font-semibold">500+</span> reviews
+              </div>
             </div>
           </div>
         </div>
