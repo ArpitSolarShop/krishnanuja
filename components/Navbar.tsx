@@ -8,12 +8,15 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Phone, Zap } from "lucide-react";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projects" },
-  { href: "#process", label: "Process" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#services", label: "Services" },
+  { href: "/products", label: "Products" },
+  { href: "/roi-calculator", label: "ROI Calculator" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/#process", label: "Process" },
+  { href: "/#testimonials", label: "Testimonials" },
+  { href: "/blog", label: "Blog" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Navbar() {

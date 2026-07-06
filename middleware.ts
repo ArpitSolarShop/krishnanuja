@@ -1,8 +1,15 @@
-import { type NextRequest } from "next/server";
-import { updateSession } from "@/utils/supabase/middleware";
+import { NextResponse } from "next/server";
+
+import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+    if (request.nextUrl.pathname.startsWith('/admin')) {
+        const session = request.cookies.get('admin_session');
+        if (!session) {
+            return NextResponse.redirect(new URL('/login', request.url));
+        }
+    }
+    return NextResponse.next();
 }
 
 export const config = {

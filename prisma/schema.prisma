@@ -2,11 +2,11 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider  = "sqlite"
 }
 
 model QuoteRequest {
@@ -19,4 +19,33 @@ model QuoteRequest {
   status    String   @default("new") // e.g., new, contacted, closed
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model BlogPost {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  excerpt       String?
+  content       String   
+  featuredImage String?
+  status        String   @default("published") // published, draft
+  tags          String?
+  seoTitle      String?
+  seoDesc       String?
+  publishedAt   DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Project {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  category      String   // e.g., Residential, Commercial, Industrial
+  capacity      String   // e.g., 5kW, 50kW
+  location      String
+  imageUrl      String
+  featured      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

@@ -64,6 +64,8 @@ export const metadata: Metadata = {
   },
 };
 
+import FloatingChatButton from "@/components/FloatingChatButton";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -79,6 +81,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans selection:bg-foreground selection:text-background overflow-x-hidden">
         {children}
+        <FloatingChatButton />
       </body>
     </html>
   );

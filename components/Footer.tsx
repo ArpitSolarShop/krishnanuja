@@ -133,9 +133,9 @@ export default function Footer() {
             © {new Date().getFullYear()} Krishnanuja Renewables Pvt. Ltd. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm text-muted-foreground font-medium">
-            <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Sitemap</Link>
+            <Link href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <Link href="/terms-and-conditions" className="hover:text-primary transition-colors">Terms of Service</Link>
+            <Link href="/sitemap.xml" className="hover:text-primary transition-colors">Sitemap</Link>
           </div>
         </div>
       </div>

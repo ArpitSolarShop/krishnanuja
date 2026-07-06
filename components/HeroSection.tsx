@@ -20,12 +20,12 @@ export default function HeroSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 pt-4 w-full sm:w-auto">
-          <Link href="/quote" className="w-full sm:w-auto flex">
+          <Link href="/roi-calculator" className="w-full sm:w-auto flex">
             <Button
               size="lg"
               className="w-full sm:w-auto rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-base sm:text-lg px-8 py-6 h-14 transition-colors"
             >
-              Get Free Consultation
+              Calculate Savings Now
             </Button>
           </Link>
           <Link href="#services" className="w-full sm:w-auto flex">
@@ -55,7 +55,7 @@ export default function HeroSection() {
       </div>
 
       {/* Stats bar */}
-      <div className="max-w-4xl mx-auto w-full mt-24 px-4">
+      <div className="max-w-4xl mx-auto w-full px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
             { value: "500+", label: "Projects Completed" },

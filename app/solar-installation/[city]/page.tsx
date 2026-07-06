@@ -1,15 +1,35 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import locations from "@/data/locations.json";
+import locationsData from "@/data/locations.json";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ServicesSection from "@/components/ServicesSection";
 import ProcessSection from "@/components/ProcessSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
+import LocationMap from "@/components/LocationMap";
+import LocationJsonLd from "@/components/LocationJsonLd";
+import { QuickSiteVisitForm } from "@/components/forms/QuickSiteVisitForm";
+
+interface LocationData {
+    slug: string;
+    name: string;
+    type: string;
+    city: string;
+    state: string;
+    pincode: string;
+    discom: string;
+    subsidy: string;
+    landmarks?: string;
+    key_areas?: string;
+    keywords?: string[];
+}
+
+const locations = locationsData as LocationData[];
+
 
 interface Props {
     params: Promise<{
@@ -46,6 +66,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             `Best Solar Dealer in ${location.name}`,
             `Solar System Installation ${location.name}`,
             `Top Solar Company in ${location.name}`,
+            `Solar Shop in ${location.name}`,
+            `Commercial Solar Plant in ${location.name}`,
+            `Solar Rooftop Subsidy ${location.name}`,
+            `3kW Solar System Price ${location.name}`,
+            `5kW Solar System Price ${location.name}`,
+            `10kW Solar System Cost ${location.name}`,
+            `Solar EMI Options ${location.name}`,
+            `Solar Consultation ${location.name}`,
+            `Solar EPC Company ${location.name}`,
+            `Off-grid Solar System ${location.name}`,
+            `Hybrid Solar System ${location.name}`,
         ],
         openGraph: {
             title: `Premium Solar Panel Installer in ${location.name} | Krishnanuja Renewables`,
@@ -66,8 +97,9 @@ export default async function LocationPage({ params }: Props) {
     return (
         <div className="bg-background min-h-screen text-foreground">
             <Navbar />
+            <LocationJsonLd city={location.name} state={location.state} />
 
-            {/* Location Hero (Modified Krishnanuja Hero) */}
+            {/* Location Hero */}
             <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-background">
                 <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center max-w-4xl">
                     <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">
@@ -87,7 +119,7 @@ export default async function LocationPage({ params }: Props) {
                 </div>
             </section>
 
-            {/* 2. Key Benefits / Why Choose Us in City */}
+            {/* Key Benefits / Why Choose Us */}
             <section className="py-20 px-4 max-w-7xl mx-auto bg-background">
                 <div className="grid md:grid-cols-2 gap-16 items-center">
                     <div>
@@ -120,13 +152,40 @@ export default async function LocationPage({ params }: Props) {
                         {/* Contact Us Section */}
                         <div className="bg-secondary/30 rounded-3xl p-8 mb-8">
                             <h3 className="font-bold text-2xl mb-4 text-foreground">Contact Us</h3>
-                            <div className="space-y-3">
+                            <div className="space-y-3 mb-6">
                                 <p className="text-lg text-foreground"><strong>Phone:</strong> <a href="tel:+919509624540" className="hover:text-primary transition-colors">+91 95096 24540</a></p>
                                 <p className="text-lg text-foreground"><strong>Service Area:</strong> {location.name}, {location.discom} Region</p>
                             </div>
+                            
+                            <QuickSiteVisitForm city={location.name}>
+                                <Button className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 font-bold rounded-xl px-6 py-6 text-lg shadow-md">
+                                    Schedule Free Site Visit
+                                </Button>
+                            </QuickSiteVisitForm>
                         </div>
+
+                        {/* Landmarks & Key Areas */}
+                        {location.landmarks && (
+                            <div className="bg-secondary/30 rounded-3xl p-8 mb-8">
+                                <h3 className="font-bold text-2xl mb-4 flex items-center gap-2 text-foreground">
+                                    <MapPin className="w-6 h-6 text-primary" />
+                                    Major Landmarks Near You
+                                </h3>
+                                <p className="text-muted-foreground text-lg mb-4">
+                                    We provide solar installation services near {location.landmarks}.
+                                </p>
+                                {location.key_areas && (
+                                    <>
+                                        <h4 className="font-semibold text-lg text-foreground mb-2">Key Areas Covered:</h4>
+                                        <p className="text-muted-foreground leading-relaxed">
+                                            {location.key_areas}
+                                        </p>
+                                    </>
+                                )}
+                            </div>
+                        )}
                     </div>
-                    
+
                     <div className="relative h-full min-h-[600px] rounded-[2rem] overflow-hidden shadow-2xl">
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 flex items-end p-10">
                             <p className="text-white font-bold text-3xl">Powering {location.city}</p>
@@ -143,7 +202,7 @@ export default async function LocationPage({ params }: Props) {
                 </div>
             </section>
 
-            {/* Pricing Section (Apple Style) */}
+            {/* Pricing Section */}
             <section className="py-20 bg-secondary/30">
                 <div className="max-w-5xl mx-auto px-4">
                     <div className="text-center mb-16">
@@ -195,8 +254,53 @@ export default async function LocationPage({ params }: Props) {
                             </table>
                         </div>
                     </div>
+
+                    {/* Subsidy Structure Table */}
+                    <div className="mt-10 bg-background rounded-3xl overflow-hidden shadow-sm border border-primary/20 p-8">
+                        <h3 className="font-bold text-2xl mb-6 text-foreground">
+                            Detailed Subsidy Structure in {location.state}
+                        </h3>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                                <thead>
+                                    <tr className="bg-secondary/50 border-b border-border/50">
+                                        <th className="px-6 py-4 font-semibold text-foreground rounded-l-xl">Capacity</th>
+                                        <th className="px-6 py-4 font-semibold text-foreground">Central Subsidy</th>
+                                        <th className="px-6 py-4 font-semibold text-foreground">State Subsidy</th>
+                                        <th className="px-6 py-4 font-semibold text-foreground rounded-r-xl">Total Benefit</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-border/30">
+                                    <tr className="hover:bg-secondary/20 transition-colors">
+                                        <td className="px-6 py-4 font-medium">2 kW</td>
+                                        <td className="px-6 py-4">₹90,000</td>
+                                        <td className="px-6 py-4">₹0*</td>
+                                        <td className="px-6 py-4 font-bold text-primary">₹90,000</td>
+                                    </tr>
+                                    <tr className="hover:bg-secondary/20 transition-colors">
+                                        <td className="px-6 py-4 font-medium">3 kW</td>
+                                        <td className="px-6 py-4">₹1,08,000</td>
+                                        <td className="px-6 py-4">₹0*</td>
+                                        <td className="px-6 py-4 font-bold text-primary">₹1,08,000</td>
+                                    </tr>
+                                    <tr className="hover:bg-secondary/20 transition-colors">
+                                        <td className="px-6 py-4 font-medium">Above 3 kW</td>
+                                        <td className="px-6 py-4">₹1,08,000</td>
+                                        <td className="px-6 py-4">₹0*</td>
+                                        <td className="px-6 py-4 font-bold text-primary">₹1,08,000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p className="text-sm text-muted-foreground mt-4">
+                            * Valid for residential consumers with a valid electricity bill from {location.discom}. Prices are indicative and include GST.
+                        </p>
+                    </div>
                 </div>
             </section>
+
+            {/* Location Map */}
+            <LocationMap city={location.name} />
 
             {/* Standard Components */}
             <ServicesSection />
@@ -211,7 +315,7 @@ export default async function LocationPage({ params }: Props) {
                     <div className="flex flex-wrap gap-4 justify-center">
                         {locations
                             .filter(l => l.slug !== location.slug)
-                            .slice(0, 15) // Limit to top 15 to keep it clean
+                            .slice(0, 15)
                             .map((area) => (
                                 <Link
                                     key={area.slug}
