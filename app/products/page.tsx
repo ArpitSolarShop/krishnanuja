@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Zap, ArrowRight, ShieldCheck, Sun } from "lucide-react";
+import { CheckCircle2, ArrowRight, ShieldCheck, Sun } from "lucide-react";
 
 export const metadata: Metadata = {
     title: "Premium Solar Products | Krishnanuja Renewables",

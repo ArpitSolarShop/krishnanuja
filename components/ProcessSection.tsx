@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { ClipboardCheck, Compass, Wrench, BarChart3, CheckCircle2, Zap, Settings, ShieldCheck } from "lucide-react";
+import { ClipboardCheck, Compass, Wrench, BarChart3, Zap, Settings, ShieldCheck } from "lucide-react";
 
 const steps = [
   {

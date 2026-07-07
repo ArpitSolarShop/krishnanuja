@@ -369,7 +369,8 @@ export function HeroGetQuote() {
                                                         <XAxis dataKey="year" tick={{ fontSize: 12 }} strokeOpacity={0.5} tickFormatter={(val) => val.replace('Year ', '')} />
                                                         <YAxis tickFormatter={(val) => `₹${(val / 100000).toFixed(1)}L`} tick={{ fontSize: 12 }} strokeOpacity={0.5} />
                                                         <Tooltip 
-                                                            formatter={(value: any) => [`₹${(value || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`, undefined]}
+                                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                                            formatter={(value: any) => [`₹${(Number(value) || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`, undefined]}
                                                             contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                                                         />
                                                         <Legend />

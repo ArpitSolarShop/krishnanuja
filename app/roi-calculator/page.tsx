@@ -72,7 +72,7 @@ export default function RoiCalculatorPage() {
                     <div className="space-y-6">
                         <div className="bg-background p-6 rounded-2xl border border-border/50">
                             <h3 className="text-lg font-bold mb-2">1. The Math Behind the Magic</h3>
-                            <p className="text-muted-foreground">We take your current electricity bill and your state's average tariff to reverse-engineer your monthly unit consumption. From there, we calculate the exact kWp system size required to wipe out that bill.</p>
+                            <p className="text-muted-foreground">We take your current electricity bill and your state&apos;s average tariff to reverse-engineer your monthly unit consumption. From there, we calculate the exact kWp system size required to wipe out that bill.</p>
                         </div>
                         <div className="bg-background p-6 rounded-2xl border border-border/50">
                             <h3 className="text-lg font-bold mb-2">2. Roof Space & Feasibility</h3>

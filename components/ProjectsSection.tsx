@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { MapPin, Zap, Calendar } from "lucide-react";
+import InstallationCarousel from "./InstallationCarousel";
 
 const projects = [
   {
@@ -99,6 +100,8 @@ export default function ProjectsSection() {
             </div>
           ))}
         </div>
+
+        <InstallationCarousel />
       </div>
     </section>
   );

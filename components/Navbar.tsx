@@ -11,11 +11,8 @@ const navLinks = [
   { href: "/#about", label: "About" },
   { href: "/#services", label: "Services" },
   { href: "/products", label: "Products" },
-  { href: "/roi-calculator", label: "ROI Calculator" },
   { href: "/portfolio", label: "Portfolio" },
-  { href: "/#process", label: "Process" },
-  { href: "/#testimonials", label: "Testimonials" },
-  { href: "/blog", label: "Blog" },
+  { href: "/build-your-system", label: "Calculator" },
   { href: "/#contact", label: "Contact" },
 ];
 

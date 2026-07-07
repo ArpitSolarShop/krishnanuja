@@ -23,7 +23,7 @@ export default function PrivacyPolicyPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
             <p>
-              Welcome to Krishnanuja Renewables ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. 
+              Welcome to Krishnanuja Renewables (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are committed to protecting your personal information and your right to privacy. 
               This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website krishnanuja.com or engage with our services.
             </p>
           </section>

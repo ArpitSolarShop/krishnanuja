@@ -13,21 +13,29 @@ export default function AboutSection() {
           <div className="space-y-10 order-2 lg:order-1">
             <div className="space-y-4">
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-tight">
-                Powering India&apos;s <br /> green revolution.
+                Our Journey &amp; <br /> Evolution.
               </h2>
             </div>
 
-            <p className="text-xl text-muted-foreground leading-relaxed font-medium">
-              Krishnanuja Renewables Pvt. Ltd. is a leading Solar EPC company committed to driving India&apos;s transition to clean, renewable energy. We deliver turnkey solar solutions that transform how homes and businesses power their future.
-            </p>
+            <div className="space-y-6 text-lg text-muted-foreground leading-relaxed font-medium">
+              <p>
+                Founded in 2013 by a dedicated team of engineers in Varanasi, our journey began as <strong>Arpit Solar Shop</strong>, a sole proprietorship. Driven by a vision to provide reliable and uninterrupted clean energy, we quickly established ourselves as a trusted name in solar EPC.
+              </p>
+              <p>
+                Today, we have evolved into <strong>Krishnanuja Renewables Pvt. Ltd.</strong>, a private limited company guided by directors <strong>Rahul and Ratnesh Mishra</strong>. With over <strong>25MW</strong> of successfully installed projects, we continue our legacy of empowering homes and businesses across India.
+              </p>
+              <p>
+                We are proud to be an officially empaneled agency by <strong>UPNEDA</strong> and channel partners for industry leaders like Reliance New Energy, Shakti Pumps, and Tata Power Solar.
+              </p>
+            </div>
 
             {/* Features */}
             <div className="grid sm:grid-cols-2 gap-x-8 gap-y-10 pt-8">
               {[
-                { icon: CheckCircle, title: "End-to-End EPC", desc: "Design to commissioning" },
-                { icon: Award, title: "Premium Quality", desc: "Tier-1 components only" },
-                { icon: Users, title: "Expert Team", desc: "Certified engineers" },
-                { icon: Globe, title: "Pan-India Reach", desc: "Serving across states" },
+                { icon: CheckCircle, title: "25MW+ Installed", desc: "Proven track record" },
+                { icon: Award, title: "UPNEDA Empaneled", desc: "PM Surya Ghar Approved" },
+                { icon: Users, title: "Expert Directors", desc: "Rahul & Ratnesh Mishra" },
+                { icon: Globe, title: "Premium Partners", desc: "Tata, Reliance, Shakti" },
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} className="flex flex-col gap-3">
                   <Icon className="w-8 h-8 text-primary" />
@@ -57,8 +65,8 @@ export default function AboutSection() {
                   <Award className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <div>
-                  <p className="font-bold text-foreground text-lg">Trusted EPC</p>
-                  <p className="text-sm text-muted-foreground">ISO Certified</p>
+                  <p className="font-bold text-foreground text-lg">Since 2013</p>
+                  <p className="text-sm text-muted-foreground">Pioneering Solar EPC</p>
                 </div>
               </div>
             </div>
