@@ -3,8 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Zap, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import MarketingLayout from "@/components/layout/MarketingLayout";
 
 export const metadata: Metadata = {
   title: "Tata Power Solar Solutions | Krishnanuja Renewables",
@@ -15,8 +14,7 @@ export default function TataSolarPage() {
 
 
   return (
-    <>
-      <Navbar />
+    <MarketingLayout>
       <main className="pt-24 pb-16 bg-background">
         
         {/* Hero Section */}
@@ -36,7 +34,7 @@ export default function TataSolarPage() {
                   Krishnanuja Renewables is an authorized partner for Tata Power Solar, bringing you premium quality, unmatched reliability, and government subsidy support.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/quote">
+                  <Link href="/#get-quote">
                     <Button size="lg" className="rounded-full px-8 text-base h-12">
                       Get a Free Quote
                     </Button>
@@ -146,7 +144,6 @@ export default function TataSolarPage() {
         </section>
 
       </main>
-      <Footer />
-    </>
+    </MarketingLayout>
   );
 }

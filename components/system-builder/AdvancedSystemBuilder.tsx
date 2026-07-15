@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { individualComponents, SolarComponent } from "@/lib/data/individualComponents";
-import { Sun, FileText, Settings, Printer, Save, Trash2, Plus, Minus, CheckCircle } from "lucide-react";
+import { Sun, FileText, Settings, Save, Trash2, Plus, Minus, CheckCircle, Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { calculateSavings, defaultTerms } from "@/lib/data/companyDetails";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { calculateSavings, defaultTerms } from "@/lib/companyDetails";
+import { submitHeroLead } from "@/app/actions/leads";
 
 // --- Types ---
 interface CartItem {
@@ -53,9 +56,19 @@ export default function AdvancedSystemBuilder() {
   const [isOver, setIsOver] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
+  // Lead capture modal state
+  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [leadName, setLeadName] = useState("");
+  const [leadPhone, setLeadPhone] = useState("");
+  const [leadAddress, setLeadAddress] = useState("");
+  const [leadSubmitting, setLeadSubmitting] = useState(false);
+  const [leadSuccess, setLeadSuccess] = useState(false);
+  const [leadError, setLeadError] = useState("");
+
   // Category Filters
   const [coreFilter, setCoreFilter] = useState<string>("All");
   const [bosFilter, setBosFilter] = useState<string>("All");
+  const [systemType, setSystemType] = useState<keyof typeof defaultTerms>("On-grid");
 
   // Load draft & set mounted
   useEffect(() => {
@@ -68,7 +81,7 @@ export default function AdvancedSystemBuilder() {
   }, []);
 
   // Split components
-  const primaryComponents = individualComponents.filter(c => ['Panel', 'Inverter', 'Battery'].includes(c.category));
+  // const primaryComponents = individualComponents.filter(c => ['Panel', 'Inverter', 'Battery'].includes(c.category));
   const bosComponents = individualComponents.filter(c => ['Structure', 'Electrical', 'Cable', 'Earthing', 'Service'].includes(c.category));
 
   // Math
@@ -86,16 +99,13 @@ export default function AdvancedSystemBuilder() {
   const gstAmount = cart.reduce((acc, item) => acc + ((item.component.price * item.quantity) * (item.component.gstRate / 100)), 0);
   const totalSubsidy = calculateSubsidy(totalKwp);
   const grandTotal = basePrice + gstAmount - totalSubsidy;
-  const savings = calculateSavings(totalKwp, basePrice + gstAmount, totalSubsidy);
+  const savings = calculateSavings(totalKwp, basePrice + gstAmount, totalSubsidy, 0);
 
-  const hasVFD = cart.some(item => item.component.name.includes("VFD") || item.component.spec.includes("VFD"));
-  const hasBattery = cart.some(item => item.component.category === 'Battery');
-  const hasPanels = cart.some(item => item.component.category === 'Panel');
+  // const hasVFD = cart.some(item => item.component.name.includes("VFD") || item.component.spec.includes("VFD"));
+  // const hasBattery = cart.some(item => item.component.category === 'Battery');
+  // const hasPanels = cart.some(item => item.component.category === 'Panel');
 
-  let systemType: keyof typeof defaultTerms = 'On-grid';
-  if (hasVFD) systemType = 'VFD/Drive';
-  else if (hasBattery && hasPanels) systemType = 'Hybrid';
-  else if (hasBattery && !hasPanels) systemType = 'Off-grid';
+  // Removed local systemType inference to use explicitly selected systemType from state
 
   // Actions
   const addToCart = (component: SolarComponent) => {
@@ -159,6 +169,23 @@ export default function AdvancedSystemBuilder() {
           <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
             <Sun className="w-5 h-5 text-primary" /> Core Components
           </h2>
+
+          <div className="mb-4">
+            <label className="text-xs font-semibold text-slate-500 uppercase mb-1 block">System Type</label>
+            <select 
+              className="w-full border rounded-md px-3 py-2 text-sm font-medium bg-background shadow-sm"
+              value={systemType}
+              onChange={(e) => {
+                setSystemType(e.target.value as keyof typeof defaultTerms);
+                setCart([]); // Clear cart when system type changes
+              }}
+            >
+              <option value="On-grid">On-grid System</option>
+              <option value="Hybrid">Hybrid System</option>
+              <option value="Off-grid">Off-grid System</option>
+              <option value="VFD/Drive">VFD/Drive</option>
+            </select>
+          </div>
           
           {/* Quick Filters */}
           <div className="flex flex-wrap gap-2 mb-4">
@@ -178,16 +205,36 @@ export default function AdvancedSystemBuilder() {
           </div>
 
           <div className="overflow-y-auto pr-2 space-y-4 flex-grow hide-scrollbar">
-            {['Panel', 'Inverter', 'Battery'].filter(cat => coreFilter === 'All' || coreFilter === cat).map(category => (
-              <div key={category} className="space-y-2">
-                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider sticky top-0 bg-background/95 backdrop-blur py-1 z-10 rounded">{category}s</h3>
-                <div className="grid gap-2">
-                  {primaryComponents.filter(c => c.category === category).map(c => (
-                    <DraggableCard key={c.id} component={c} onAdd={() => addToCart(c)} />
-                  ))}
+            {['Panel', 'Inverter', 'Battery'].filter(cat => coreFilter === 'All' || coreFilter === cat).map(category => {
+              // Hide Battery category completely if On-grid or VFD
+              if (category === 'Battery' && (systemType === 'On-grid' || systemType === 'VFD/Drive')) return null;
+              
+              const filteredComponents = individualComponents
+                .filter(c => c.category === category)
+                .filter(c => {
+                  if (c.category !== 'Inverter') return true;
+                  // Filter inverters based on System Type
+                  const spec = c.spec.toLowerCase();
+                  if (systemType === 'On-grid') return spec.includes('on-grid');
+                  if (systemType === 'Hybrid') return spec.includes('hybrid');
+                  if (systemType === 'Off-grid') return spec.includes('off-grid') || spec.includes('pwm') || spec.includes('mppt');
+                  if (systemType === 'VFD/Drive') return spec.includes('vfd');
+                  return true;
+                });
+
+              if (filteredComponents.length === 0) return null;
+
+              return (
+                <div key={category} className="space-y-2">
+                  <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider sticky top-0 bg-secondary/90 backdrop-blur py-1 z-10 rounded">{category}s</h3>
+                  <div className="grid gap-2">
+                    {filteredComponents.map(c => (
+                      <DraggableCard key={c.id} component={c} onAdd={() => addToCart(c)} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <p className="text-[10px] text-muted-foreground mt-4 text-center">Drag a card to the blueprint</p>
         </div>
@@ -209,8 +256,8 @@ export default function AdvancedSystemBuilder() {
               <Button variant="outline" size="sm" onClick={saveDraft} disabled={cart.length === 0}>
                 <Save className="w-4 h-4 mr-2" /> {draftSaved ? "Saved!" : "Save Draft"}
               </Button>
-              <Button size="sm" onClick={() => window.print()} disabled={cart.length === 0}>
-                <Printer className="w-4 h-4 mr-2" /> Print Quote
+              <Button size="sm" onClick={() => setShowLeadModal(true)} disabled={cart.length === 0}>
+                <Send className="w-4 h-4 mr-2" /> Get Your Free Quote
               </Button>
             </div>
           </div>
@@ -403,6 +450,160 @@ export default function AdvancedSystemBuilder() {
           </div>
           <p className="text-[10px] text-muted-foreground mt-4 text-center">Drag a card to the blueprint</p>
         </div>
+
+        {/* Lead Capture Modal */}
+        <Dialog open={showLeadModal} onOpenChange={(open) => {
+          setShowLeadModal(open);
+          if (!open) {
+            setLeadSuccess(false);
+            setLeadError("");
+          }
+        }}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-bold">
+                {leadSuccess ? "🎉 Quote Request Submitted!" : "Get Your Free Quote"}
+              </DialogTitle>
+            </DialogHeader>
+
+            {leadSuccess ? (
+              <div className="py-6 text-center space-y-4">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                  <CheckCircle className="w-8 h-8 text-green-600" />
+                </div>
+                <p className="text-muted-foreground">
+                  Thank you, <strong>{leadName}</strong>! Our solar experts will contact you shortly with a detailed quotation for your <strong>{totalKwp.toFixed(1)} kWp</strong> system.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Estimated system cost: <strong>{formatCurrency(grandTotal)}</strong>
+                </p>
+                <div className="flex gap-3 justify-center pt-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setShowLeadModal(false);
+                      setLeadSuccess(false);
+                    }}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      window.location.href = "/#get-quote";
+                    }}
+                  >
+                    View ROI Calculator
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setLeadSubmitting(true);
+                  setLeadError("");
+
+                  // Build system summary for the lead
+                  const systemSummary = cart.map(item => `${item.component.name} x${item.quantity}`).join(", ");
+                  const billSummary = `${totalKwp.toFixed(1)}kWp ${systemType} System | ${formatCurrency(grandTotal)} | Items: ${systemSummary}`;
+
+                  try {
+                    const result = await submitHeroLead({
+                      name: leadName,
+                      phone: leadPhone,
+                      bill: billSummary,
+                      timeline: "System Builder Quote",
+                      address: leadAddress,
+                    });
+
+                    if (result.success) {
+                      setLeadSuccess(true);
+                    } else {
+                      setLeadError("Something went wrong. Please try again.");
+                    }
+                  } catch {
+                    setLeadError("Network error. Please check your connection.");
+                  } finally {
+                    setLeadSubmitting(false);
+                  }
+                }}
+                className="space-y-4 pt-2"
+              >
+                <p className="text-sm text-muted-foreground">
+                  Enter your details and our team will prepare a personalized quotation for your <strong>{totalKwp.toFixed(1)} kWp</strong> solar system.
+                </p>
+
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-xs font-semibold text-muted-foreground uppercase mb-1 block">Full Name *</label>
+                    <Input
+                      placeholder="Enter your full name"
+                      value={leadName}
+                      onChange={(e) => setLeadName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-muted-foreground uppercase mb-1 block">WhatsApp / Phone *</label>
+                    <Input
+                      placeholder="Enter your phone number"
+                      type="tel"
+                      value={leadPhone}
+                      onChange={(e) => setLeadPhone(e.target.value)}
+                      required
+                      pattern="[0-9]{10}"
+                      title="Please enter a 10-digit phone number"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-muted-foreground uppercase mb-1 block">Location / Address</label>
+                    <Input
+                      placeholder="City or full address"
+                      value={leadAddress}
+                      onChange={(e) => setLeadAddress(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* System Summary */}
+                <div className="bg-secondary/50 rounded-xl p-4 space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">System Size</span>
+                    <span className="font-semibold">{totalKwp.toFixed(1)} kWp ({systemType})</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Components</span>
+                    <span className="font-semibold">{cart.length} items</span>
+                  </div>
+                  <div className="flex justify-between border-t border-border pt-2">
+                    <span className="text-muted-foreground font-medium">Estimated Total</span>
+                    <span className="font-bold text-primary">{formatCurrency(grandTotal)}</span>
+                  </div>
+                </div>
+
+                {leadError && (
+                  <p className="text-sm text-red-500 font-medium">{leadError}</p>
+                )}
+
+                <Button
+                  type="submit"
+                  className="w-full h-12 text-base font-bold"
+                  disabled={leadSubmitting || !leadName.trim() || !leadPhone.trim()}
+                >
+                  {leadSubmitting ? (
+                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Submitting...</>
+                  ) : (
+                    <><Send className="w-4 h-4 mr-2" /> Submit & Get Quote</>
+                  )}
+                </Button>
+
+                <p className="text-[10px] text-muted-foreground text-center">
+                  By submitting, you agree to be contacted by our team regarding your solar installation.
+                </p>
+              </form>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
   );
 }

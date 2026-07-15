@@ -19,10 +19,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                         <LayoutDashboard className="w-5 h-5" />
                         Blog Manager
                     </Link>
-                    <Link href="/admin/portfolio" className="flex items-center gap-3 hover:bg-secondary text-foreground font-medium px-4 py-3 rounded-xl transition-colors">
-                        <LayoutDashboard className="w-5 h-5" />
-                        Portfolio Manager
-                    </Link>
                 </nav>
             </div>
             

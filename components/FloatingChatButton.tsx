@@ -16,7 +16,7 @@ export default function FloatingChatButton() {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 200, damping: 15 }}
-      className="fixed bottom-6 left-6 z-50"
+      className="fixed bottom-6 left-6 z-50 hidden sm:block"
     >
       <Link href={whatsappUrl} target="_blank" rel="noopener noreferrer">
         <motion.div

@@ -59,11 +59,11 @@ export default async function AdminLeadsPage() {
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex flex-col gap-2 items-start">
-                                            {lead.bill.includes("Site Visit") ? (
+                                            {lead.bill?.includes("Site Visit") ? (
                                                 <Badge className="bg-orange-500 hover:bg-orange-600 text-white border-0 shadow-sm">Site Visit</Badge>
                                             ) : (
                                                 <div className="flex items-center gap-1 font-bold text-emerald-600">
-                                                    <IndianRupee className="w-4 h-4" /> {lead.bill}
+                                                    <IndianRupee className="w-4 h-4" /> {lead.bill ?? "Not specified"}
                                                 </div>
                                             )}
                                         </div>

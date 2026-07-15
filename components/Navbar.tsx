@@ -6,15 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Phone, Zap } from "lucide-react";
-
-const navLinks = [
-  { href: "/#about", label: "About" },
-  { href: "/#services", label: "Services" },
-  { href: "/products", label: "Products" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/build-your-system", label: "Calculator" },
-  { href: "/#contact", label: "Contact" },
-];
+import { primaryNavigation } from "@/lib/site-navigation";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -28,7 +20,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 w-full transition-all duration-300 ${
         scrolled
           ? "bg-background/80 backdrop-blur-xl border-b border-border py-3"
           : "bg-background/95 py-4"
@@ -38,9 +30,9 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative w-8 h-8">
+            <div className="relative w-9 h-9 rounded-lg overflow-hidden">
               <Image
-                src="/logo.png"
+                src="/logo-short.png"
                 alt="Krishnanuja Logo"
                 fill
                 className="object-contain"
@@ -48,19 +40,19 @@ export default function Navbar() {
               />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl font-semibold tracking-tight text-foreground leading-none">
-                Krishnanuja
+              <h1 className="text-base font-semibold tracking-tight text-foreground leading-tight">
+                Krishnanuja Renewables <span className="text-muted-foreground font-normal">Pvt. Ltd.</span>
               </h1>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
+          <nav aria-label="Primary navigation" className="hidden xl:flex items-center gap-5">
+            {primaryNavigation.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="whitespace-nowrap text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
               </Link>
@@ -79,7 +71,7 @@ export default function Navbar() {
                 <span className="text-[13px]">Call Us</span>
               </Button>
             </Link>
-            <Link href="/quote" className="hidden sm:block">
+            <Link href="/#get-quote" className="hidden sm:block">
               <Button
                 size="sm"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-5 font-medium text-[13px] transition-colors"
@@ -90,7 +82,7 @@ export default function Navbar() {
 
             {/* Mobile Menu */}
             <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger asChild className="lg:hidden">
+              <SheetTrigger asChild className="xl:hidden">
                 <Button variant="ghost" size="icon" className="text-foreground">
                   <Menu className="w-5 h-5" />
                 </Button>
@@ -98,11 +90,11 @@ export default function Navbar() {
               <SheetContent side="right" className="w-80 bg-background/95 backdrop-blur-xl border-l border-border">
                 <div className="flex flex-col h-full pt-8">
                   <div className="flex items-center gap-3 mb-8 px-2">
-                    <Image src="/logo.png" alt="Logo" width={32} height={32} />
-                    <p className="font-semibold text-foreground text-lg">Krishnanuja</p>
+                    <Image src="/logo-short.png" alt="Logo" width={32} height={32} className="rounded-lg" />
+                    <p className="font-semibold text-foreground text-base leading-tight">Krishnanuja Renewables <span className="text-muted-foreground font-normal">Pvt. Ltd.</span></p>
                   </div>
-                  <nav className="flex flex-col gap-2">
-                    {navLinks.map((link) => (
+                  <nav aria-label="Mobile navigation" className="flex flex-col gap-2">
+                    {primaryNavigation.map((link) => (
                       <Link
                         key={link.href}
                         href={link.href}
@@ -119,7 +111,7 @@ export default function Navbar() {
                         <Phone className="w-4 h-4" /> Call Us
                       </Button>
                     </Link>
-                    <Link href="/quote" onClick={() => setOpen(false)}>
+                    <Link href="/#get-quote" onClick={() => setOpen(false)}>
                       <Button className="w-full rounded-xl bg-primary text-primary-foreground mt-2">
                         <Zap className="w-4 h-4 mr-2" /> Get Quote
                       </Button>

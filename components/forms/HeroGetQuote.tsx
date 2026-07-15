@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Check, IndianRupee, MapPin, PiggyBank, Timer, Zap, ShoppingCart, CheckCircle2, Loader2, TrendingUp } from "lucide-react";
-import { submitHeroLead } from "@/app/actions/leads";
+import { submitHeroLead, submitPartialLead } from "@/app/actions/leads";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 type CustomerType = "Residential" | "Commercial";
@@ -32,11 +32,11 @@ const convertBillRangeToNumber = (range: string): number | null => {
     }
 };
 
-const inputBase = "w-full rounded-xl border bg-background text-base sm:text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary px-3 py-2 h-12 md:h-11";
+const inputBase = "w-full rounded-lg border bg-background text-base sm:text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary px-3 py-1.5 h-10";
 const buttonBase = "inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 disabled:pointer-events-none";
 const buttonPrimary = `${buttonBase} bg-primary text-primary-foreground hover:bg-primary/90 font-bold`;
 const buttonOutline = `${buttonBase} border hover:bg-secondary`;
-const chip = "rounded-xl border px-3 py-3 text-sm font-medium hover:bg-secondary transition-colors";
+const chip = "rounded-lg border px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm font-medium hover:bg-secondary transition-colors";
 
 function useInlineToast() {
     const [msg, setMsg] = useState<{ title: string; desc?: string } | null>(null);
@@ -93,6 +93,7 @@ export function HeroGetQuote() {
     const [agreed, setAgreed] = useState(false);
     const [submittingProductId, setSubmittingProductId] = useState<string | null>(null);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [partialLeadId, setPartialLeadId] = useState<string | null>(null);
 
     const [formData, setFormData] = useState<QuoteFormData>({ fullName: "", whatsappNumber: "", pinCode: "", companyName: "", city: "", monthlyBill: "" });
     const [estimateData, setEstimateData] = useState<EstimateData>({ roofOwnership: "", constructed: "", roofType: "", terraceSize: "", powerCuts: "", planning: "", fullAddress: "", landmark: "", latitude: null, longitude: null });
@@ -115,6 +116,31 @@ export function HeroGetQuote() {
         }
     };
 
+    // Auto-capture partial lead data (debounced)
+    useEffect(() => {
+        // Only trigger if we have a somewhat valid phone number
+        if (!formData.whatsappNumber || formData.whatsappNumber.length < 10) return;
+
+        const timer = setTimeout(async () => {
+            try {
+                const res = await submitPartialLead({
+                    id: partialLeadId || undefined,
+                    name: formData.fullName,
+                    phone: formData.whatsappNumber,
+                    bill: formData.monthlyBill,
+                    city: formData.city,
+                });
+                if (res.success && res.id && !partialLeadId) {
+                    setPartialLeadId(res.id);
+                }
+            } catch (error) {
+                console.error("Auto-capture failed", error);
+            }
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [formData, partialLeadId]);
+
 
 
     const handleSubmitDetails = async (e?: React.FormEvent) => {
@@ -123,6 +149,7 @@ export function HeroGetQuote() {
         setLoading(true);
         try {
             await submitHeroLead({
+                id: partialLeadId || undefined,
                 name: formData.fullName,
                 phone: formData.whatsappNumber,
                 bill: formData.monthlyBill,
@@ -206,6 +233,7 @@ export function HeroGetQuote() {
         setSubmittingProductId(id);
         try {
             await submitHeroLead({
+                id: partialLeadId || undefined,
                 name: formData.fullName,
                 phone: formData.whatsappNumber,
                 bill: formData.monthlyBill,
@@ -244,9 +272,9 @@ export function HeroGetQuote() {
     }
 
     return (
-        <section className="w-full max-w-xl mx-auto px-4 sm:px-0">
-            <div className="rounded-3xl border border-border/50 bg-background shadow-xl overflow-hidden">
-                <div className="p-6 border-b border-border/50 bg-secondary/20">
+        <section className="w-full mx-auto">
+            <div className="rounded-2xl border border-border/50 bg-background shadow-xl overflow-hidden">
+                <div className="p-3 sm:p-4 border-b border-border/50 bg-secondary/20">
                     <div className="flex items-center justify-between gap-3">
                         {step > 0 && step < 4 ? (<button type="button" className={`${buttonOutline} h-10 w-10 p-0 rounded-full`} onClick={() => setStep(s => Math.max(0, s - 1))} aria-label="Go back"><ArrowLeft className="h-5 w-5" /></button>) : <div />}
                         <h2 className="text-xl font-bold text-foreground">{getStepTitle()}</h2>
@@ -255,7 +283,7 @@ export function HeroGetQuote() {
                     {step > 0 && step < 4 && (<div className="mt-6"><Stepper current={step} total={TOTAL_ESTIMATE_STEPS} /></div>)}
                 </div>
 
-                <div className="p-6">
+                <div className="p-3 sm:p-4">
                     <AnimatePresence>
                         {msg && (<motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="mb-4 rounded-xl border border-primary/20 bg-primary/10 px-4 py-3 text-sm" role="status" aria-live="polite" ><p className="font-bold text-primary">{msg.title}</p>{msg.desc && <p className="text-muted-foreground mt-1">{msg.desc}</p>}</motion.div>)}
                     </AnimatePresence>
@@ -264,39 +292,39 @@ export function HeroGetQuote() {
                         <motion.div key={step} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.25, ease: "easeOut" }}>
 
                             {step === 0 && (
-                                <form onSubmit={handleSubmitDetails} className="space-y-6">
+                                <form onSubmit={handleSubmitDetails} className="space-y-4">
                                     <div className="bg-secondary rounded-xl p-1.5 grid grid-cols-2 gap-1">
                                         {(["Residential", "Commercial"] as CustomerType[]).map((type) => (
-                                            <button key={type} type="button" onClick={() => { setCustomerType(type); setFormData({ fullName: "", whatsappNumber: "", pinCode: "", companyName: "", city: "", monthlyBill: "" }); }} className={`h-11 rounded-lg text-sm font-semibold transition-all ${customerType === type ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:bg-background/50"}`} aria-pressed={customerType === type}>{type}</button>
+                                            <button key={type} type="button" onClick={() => { setCustomerType(type); setFormData({ fullName: "", whatsappNumber: "", pinCode: "", companyName: "", city: "", monthlyBill: "" }); }} className={`h-9 rounded-md text-sm font-semibold transition-all ${customerType === type ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:bg-background/50"}`} aria-pressed={customerType === type}>{type}</button>
                                         ))}
                                     </div>
 
-                                    <div className="space-y-2"><label htmlFor="fullName" className="text-sm font-semibold text-foreground">Full Name <span className="text-destructive">*</span></label><input id="fullName" required className={inputBase} value={formData.fullName} onChange={(e) => updateForm('fullName', e.target.value)} placeholder="e.g. Rahul Sharma" /></div>
+                                    <div className="space-y-1"><label htmlFor="fullName" className="text-sm font-semibold text-foreground">Full Name <span className="text-destructive">*</span></label><input id="fullName" required className={inputBase} value={formData.fullName} onChange={(e) => updateForm('fullName', e.target.value)} placeholder="e.g. Rahul Sharma" /></div>
 
                                     {customerType === 'Commercial' ? (
                                         <>
-                                            <div className="space-y-2"><label htmlFor="companyName" className="text-sm font-semibold text-foreground">Company Name <span className="text-destructive">*</span></label><input id="companyName" required className={inputBase} value={formData.companyName ?? ''} onChange={(e) => updateForm('companyName', e.target.value)} placeholder="e.g. Acme Corp" /></div>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                                <div className="space-y-2"><label htmlFor="city" className="text-sm font-semibold text-foreground">City <span className="text-destructive">*</span></label><input id="city" required className={inputBase} value={formData.city} onChange={(e) => updateForm('city', e.target.value)} placeholder="e.g. Varanasi" /></div>
-                                                <div className="space-y-2"><label htmlFor="pinCommercial" className="text-sm font-semibold text-foreground">PIN Code</label><input id="pinCommercial" className={inputBase} value={formData.pinCode} onChange={(e) => updateForm('pinCode', e.target.value)} placeholder="221001" /></div>
+                                            <div className="space-y-1"><label htmlFor="companyName" className="text-sm font-semibold text-foreground">Company Name <span className="text-destructive">*</span></label><input id="companyName" required className={inputBase} value={formData.companyName ?? ''} onChange={(e) => updateForm('companyName', e.target.value)} placeholder="e.g. Acme Corp" /></div>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <div className="space-y-1"><label htmlFor="city" className="text-sm font-semibold text-foreground">City <span className="text-destructive">*</span></label><input id="city" required className={inputBase} value={formData.city} onChange={(e) => updateForm('city', e.target.value)} placeholder="e.g. Varanasi" /></div>
+                                                <div className="space-y-1"><label htmlFor="pinCommercial" className="text-sm font-semibold text-foreground">PIN Code</label><input id="pinCommercial" className={inputBase} value={formData.pinCode} onChange={(e) => updateForm('pinCode', e.target.value)} placeholder="221001" /></div>
                                             </div>
-                                            <div className="space-y-2"><label htmlFor="wa" className="text-sm font-semibold text-foreground">WhatsApp Number <span className="text-destructive">*</span></label><input id="wa" type="tel" required className={inputBase} value={formData.whatsappNumber} onChange={(e) => updateForm('whatsappNumber', e.target.value)} placeholder="10-digit number" /></div>
-                                            <div className="space-y-2"><label htmlFor="bill" className="text-sm font-semibold text-foreground">Average Monthly Bill <span className="text-destructive">*</span></label><input id="bill" type="number" required className={inputBase} placeholder="Enter amount in ₹" value={formData.monthlyBill} onChange={(e) => updateForm('monthlyBill', e.target.value)} /></div>
+                                            <div className="space-y-1"><label htmlFor="wa" className="text-sm font-semibold text-foreground">WhatsApp Number <span className="text-destructive">*</span></label><input id="wa" type="tel" required className={inputBase} value={formData.whatsappNumber} onChange={(e) => updateForm('whatsappNumber', e.target.value)} placeholder="10-digit number" /></div>
+                                            <div className="space-y-1"><label htmlFor="bill" className="text-sm font-semibold text-foreground">Average Monthly Bill <span className="text-destructive">*</span></label><input id="bill" type="number" required className={inputBase} placeholder="Enter amount in ₹" value={formData.monthlyBill} onChange={(e) => updateForm('monthlyBill', e.target.value)} /></div>
                                         </>
                                     ) : (
                                         <>
-                                            <div className="space-y-2"><label htmlFor="wa" className="text-sm font-semibold text-foreground">WhatsApp Number <span className="text-destructive">*</span></label><input id="wa" type="tel" required className={inputBase} value={formData.whatsappNumber} onChange={(e) => updateForm('whatsappNumber', e.target.value)} placeholder="10-digit number" /></div>
-                                            <div className="space-y-2"><label htmlFor="pin" className="text-sm font-semibold text-foreground">PIN Code <span className="text-destructive">*</span></label><input id="pin" required className={inputBase} value={formData.pinCode} onChange={(e) => updateForm('pinCode', e.target.value)} placeholder="221001" /></div>
-                                            <div className="space-y-2">
-                                                <span className="text-sm font-semibold text-foreground mb-2 block">Average monthly bill? <span className="text-destructive">*</span></span>
-                                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">{BILL_RANGES.map((range) => (<button key={range} type="button" onClick={() => updateForm('monthlyBill', range)} className={`${chip} ${formData.monthlyBill === range ? "bg-primary text-primary-foreground border-primary" : ""}`} aria-pressed={formData.monthlyBill === range}>{range}</button>))}</div>
+                                            <div className="space-y-1"><label htmlFor="wa" className="text-sm font-semibold text-foreground">WhatsApp Number <span className="text-destructive">*</span></label><input id="wa" type="tel" required className={inputBase} value={formData.whatsappNumber} onChange={(e) => updateForm('whatsappNumber', e.target.value)} placeholder="10-digit number" /></div>
+                                            <div className="space-y-1"><label htmlFor="pin" className="text-sm font-semibold text-foreground">PIN Code <span className="text-destructive">*</span></label><input id="pin" required className={inputBase} value={formData.pinCode} onChange={(e) => updateForm('pinCode', e.target.value)} placeholder="221001" /></div>
+                                            <div className="space-y-1">
+                                                <span className="text-sm font-semibold text-foreground mb-1 block">Average monthly bill? <span className="text-destructive">*</span></span>
+                                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">{BILL_RANGES.map((range) => (<button key={range} type="button" onClick={() => updateForm('monthlyBill', range)} className={`${chip} ${formData.monthlyBill === range ? "bg-primary text-primary-foreground border-primary" : ""}`} aria-pressed={formData.monthlyBill === range}>{range}</button>))}</div>
                                             </div>
                                         </>
                                     )}
 
-                                    <div className="flex items-start gap-3 pt-4"><input id="agree" type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-1 h-5 w-5 rounded border accent-primary" /><label htmlFor="agree" className="text-sm text-muted-foreground leading-relaxed">I agree to receive marketing communications and agree to the <a href="/terms-and-conditions" target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium">Terms</a> and <a href="/privacy-policy" target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium">Privacy Policy</a>.</label></div>
+                                    <div className="flex items-start gap-2 pt-2"><input id="agree" type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-0.5 h-4 w-4 rounded border accent-primary" /><label htmlFor="agree" className="text-[13px] text-muted-foreground leading-tight">I agree to receive marketing communications and agree to the <a href="/terms-and-conditions" target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium">Terms</a> and <a href="/privacy-policy" target="_blank" rel="noreferrer" className="text-primary hover:underline font-medium">Privacy Policy</a>.</label></div>
 
-                                    <button type="submit" disabled={loading} className={`${buttonPrimary} w-full h-14 text-lg mt-4`}>{loading ? <Loader2 className="animate-spin h-6 w-6" /> : "Calculate My Savings"}</button>
+                                    <button type="submit" disabled={loading} className={`${buttonPrimary} w-full h-11 text-base mt-2`}>{loading ? <Loader2 className="animate-spin h-5 w-5" /> : "Get Free Solar Quote"}</button>
                                 </form>
                             )}
 
@@ -340,9 +368,9 @@ export function HeroGetQuote() {
                                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
                                     <div className="text-center space-y-2"><h3 className="text-2xl font-bold text-foreground">Your Solar Estimate</h3><p className="text-base text-muted-foreground">Based on your ₹{formData.monthlyBill} bill in {formData.city}</p></div>
 
-                                    <div className="rounded-2xl border border-primary/20 bg-primary/5 p-6 grid grid-cols-2 gap-6 text-center shadow-inner">
-                                        <div><p className="text-sm font-medium text-muted-foreground mb-2">Required System Size</p><p className="text-3xl font-black text-foreground inline-flex items-center justify-center gap-2"><Zap className="h-6 w-6 text-yellow-500 fill-yellow-500" />{results.systemSize} kW</p></div>
-                                        <div><p className="text-sm font-medium text-muted-foreground mb-2">Approx. Roof Area</p><p className="text-2xl font-bold text-foreground">{results.requiredRoofArea} sq. ft.</p></div>
+                                    <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 sm:p-6 grid grid-cols-2 gap-3 sm:gap-6 text-center shadow-inner">
+                                        <div><p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">Required System</p><p className="text-xl sm:text-3xl font-black text-foreground inline-flex items-center justify-center gap-1 sm:gap-2"><Zap className="h-4 w-4 sm:h-6 sm:w-6 text-yellow-500 fill-yellow-500" />{results.systemSize} kW</p></div>
+                                        <div><p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">Approx. Roof Area</p><p className="text-lg sm:text-2xl font-bold text-foreground">{results.requiredRoofArea} <span className="text-xs sm:text-base font-normal text-muted-foreground">sq. ft.</span></p></div>
                                     </div>
 
                                     <div>
@@ -355,7 +383,7 @@ export function HeroGetQuote() {
 
                                         <div className="rounded-2xl border border-border/50 bg-background p-6 shadow-sm mb-8">
                                             <h4 className="text-lg font-bold mb-6 inline-flex items-center gap-2 text-foreground"><TrendingUp className="h-5 w-5 text-primary" /> 25-Year Cost Projection</h4>
-                                            <div className="h-[300px] w-full">
+                                            <div className="h-[250px] sm:h-[300px] w-full">
                                                 <ResponsiveContainer width="100%" height="100%">
                                                     <LineChart
                                                         data={Array.from({ length: 26 }, (_, i) => ({
@@ -409,14 +437,14 @@ export function HeroGetQuote() {
                                         </div>
                                     )}
 
-                                    <div className="rounded-2xl border border-border/50 bg-secondary/50 p-6 space-y-4">
+                                    <div className="rounded-2xl border border-border/50 bg-secondary/50 p-4 sm:p-6 space-y-4">
                                         <div className="flex items-center justify-between pb-4 border-b border-border/50">
                                             <p className="flex items-center gap-3 text-base text-foreground"><PiggyBank className="h-5 w-5 text-emerald-500" /><span className="font-semibold">Gross System Cost:</span></p>
                                             <p className="font-bold text-lg">₹{results.grossCost.toLocaleString('en-IN')}</p>
                                         </div>
                                         <div className="flex items-center justify-between pb-4 border-b border-border/50">
                                             <p className="flex items-center gap-3 text-base text-foreground"><IndianRupee className="h-5 w-5 text-amber-500" /><span className="font-semibold">Net Cost (after subsidy):</span></p>
-                                            <p className="font-black text-xl text-primary">₹{results.netCost.toLocaleString('en-IN')}</p>
+                                            <p className="font-black text-lg sm:text-xl text-primary">₹{results.netCost.toLocaleString('en-IN')}</p>
                                         </div>
                                         <div className="flex items-center justify-between">
                                             <p className="flex items-center gap-3 text-base text-foreground"><Timer className="h-5 w-5 text-orange-500" /><span className="font-semibold">Estimated Payback:</span></p>

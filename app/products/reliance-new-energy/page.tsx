@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import MarketingLayout from "@/components/layout/MarketingLayout";
 
 export const metadata: Metadata = {
   title: "Reliance New Energy Solar Solutions | Krishnanuja Renewables",
@@ -12,8 +11,7 @@ export const metadata: Metadata = {
 
 export default function RelianceNewEnergyPage() {
   return (
-    <>
-      <Navbar />
+    <MarketingLayout>
       <main className="pt-24 pb-16 bg-background">
         
         {/* Hero Section */}
@@ -41,7 +39,7 @@ export default function RelianceNewEnergyPage() {
               Moving to a Greener Economy with Reliance New Energy and Krishnanuja Renewables.
             </p>
             <div className="pt-8">
-              <Link href="/quote">
+            <Link href="/#get-quote">
                 <Button size="lg" className="rounded-full px-8 text-base h-12 bg-primary text-primary-foreground hover:bg-primary/90">
                   Get a Free Quote
                 </Button>
@@ -180,7 +178,7 @@ export default function RelianceNewEnergyPage() {
           <div className="max-w-3xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-foreground mb-6">Ready to transition to Reliance New Energy?</h2>
             <p className="text-lg text-muted-foreground mb-8">Get in touch with our experts at Krishnanuja Renewables for a personalized consultation.</p>
-            <Link href="/quote">
+            <Link href="/#get-quote">
               <Button size="lg" className="rounded-full px-8 text-base h-14">
                 Partner with Us Today
               </Button>
@@ -189,7 +187,6 @@ export default function RelianceNewEnergyPage() {
         </section>
 
       </main>
-      <Footer />
-    </>
+    </MarketingLayout>
   );
 }

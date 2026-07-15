@@ -4,8 +4,7 @@ import locationsData from "@/data/locations.json";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, MapPin } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import MarketingLayout from "@/components/layout/MarketingLayout";
 import ServicesSection from "@/components/ServicesSection";
 import ProcessSection from "@/components/ProcessSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -95,8 +94,8 @@ export default async function LocationPage({ params }: Props) {
     if (!location) return null;
 
     return (
+        <MarketingLayout>
         <div className="bg-background min-h-screen text-foreground">
-            <Navbar />
             <LocationJsonLd city={location.name} state={location.state} />
 
             {/* Location Hero */}
@@ -111,7 +110,7 @@ export default async function LocationPage({ params }: Props) {
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Button asChild size="lg" className="rounded-full px-8 py-6 text-lg w-full sm:w-auto shadow-sm">
-                            <Link href="/quote">
+                            <Link href="/#get-quote">
                                 Get Your Quote <ArrowRight className="ml-2 w-5 h-5" />
                             </Link>
                         </Button>
@@ -335,14 +334,14 @@ export default async function LocationPage({ params }: Props) {
                     <h2 className="text-5xl md:text-6xl font-bold mb-8">Ready to go Solar in {location.name}?</h2>
                     <p className="text-2xl mb-12 text-muted max-w-2xl mx-auto text-muted-foreground">Get a free site survey and quotation today. Start saving on your electricity bills.</p>
                     <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-xl px-12 py-8 rounded-full">
-                        <Link href="/quote">
+                        <Link href="/#get-quote">
                             Get Your Free Solar Quote
                         </Link>
                     </Button>
                 </div>
             </section>
 
-            <Footer />
         </div>
+        </MarketingLayout>
     );
 }

@@ -7,6 +7,7 @@ import { Calendar, ArrowLeft, Clock } from "lucide-react";
 import type { Metadata } from "next";
 
 import { prisma } from "@/lib/prisma";
+import MarketingLayout from "@/components/layout/MarketingLayout";
 interface BlogPostPageProps {
     params: Promise<{
         slug: string;
@@ -47,7 +48,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     });
 
     return (
-        <div className="min-h-screen bg-background">
+        <MarketingLayout>
+        <div className="min-h-screen bg-background pt-20">
             {/* Hero Section with Featured Image */}
             {post.featuredImage && (
                 <div className="relative h-[400px] md:h-[500px] w-full overflow-hidden">
@@ -119,7 +121,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                             Find out exactly how much you can save!
                         </p>
                         <div className="flex items-center justify-center gap-4 flex-wrap">
-                            <Link href="/quote">
+                            <Link href="/#get-quote">
                                 <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold px-8 h-14 rounded-xl text-lg">
                                     Get Free Quote
                                 </Button>
@@ -144,5 +146,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
             </div>
         </div>
+        </MarketingLayout>
     );
 }

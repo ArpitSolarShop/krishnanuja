@@ -70,6 +70,18 @@ export default function AboutSection() {
                 </div>
               </div>
             </div>
+
+            <div className="absolute -top-8 -right-8 bg-background p-6 rounded-3xl border border-border/50 shadow-2xl hidden md:block">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center shrink-0">
+                  <Globe className="w-7 h-7 text-green-600" />
+                </div>
+                <div>
+                  <p className="font-bold text-foreground text-lg">Tier-1 Partner</p>
+                  <p className="text-sm text-muted-foreground">Top Global Brands</p>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>

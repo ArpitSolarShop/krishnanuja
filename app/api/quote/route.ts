@@ -6,9 +6,9 @@ export async function POST(req: Request) {
     const data = await req.json();
 
     // Validate basic fields
-    if (!data.name || !data.phone || !data.bill || !data.timeline || !data.address) {
+    if (!data.name || !data.phone) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Missing required fields: name and phone' },
         { status: 400 }
       );
     }
@@ -18,9 +18,13 @@ export async function POST(req: Request) {
       data: {
         name: data.name,
         phone: data.phone,
-        bill: data.bill,
-        timeline: data.timeline,
-        address: data.address,
+        email: data.email || null,
+        city: data.city || null,
+        systemType: data.systemType || null,
+        message: data.message || null,
+        bill: data.bill || null,
+        timeline: data.timeline || null,
+        address: data.address || null,
       },
     });
 
@@ -31,12 +35,25 @@ export async function POST(req: Request) {
       const last10Digits = cleanPhone.slice(-10);
       const mobileNumber = last10Digits.length === 10 ? Number(last10Digits) : 9999999999;
       
+      // Build detailed text for Neodove
+      const d1Parts = [];
+      if (data.bill) d1Parts.push(`Bill: ${data.bill}`);
+      if (data.timeline) d1Parts.push(`Timeline: ${data.timeline}`);
+      if (data.systemType) d1Parts.push(`Type: ${data.systemType}`);
+      const detail1Str = d1Parts.length > 0 ? d1Parts.join(' | ') : "General Lead";
+
+      const d2Parts = [];
+      if (data.city) d2Parts.push(`City: ${data.city}`);
+      if (data.address) d2Parts.push(`Address: ${data.address}`);
+      if (data.message) d2Parts.push(`Msg: ${data.message}`);
+      const detail2Str = d2Parts.length > 0 ? d2Parts.join(' | ') : "No extra details";
+
       const payload = {
         name: data.name || "Unknown Lead",
         mobile: mobileNumber,
-        email: `${mobileNumber}@krishnanujarenewables.com`, // Unique dummy email to prevent NeoDove deduplication dropping leads
-        detail1: `Bill: ${data.bill} | Timeline: ${data.timeline}`,
-        detail2: `Address: ${data.address || 'Not provided'}`
+        email: data.email || `${mobileNumber}@krishnanujarenewables.com`, // Use provided email or dummy
+        detail1: detail1Str,
+        detail2: detail2Str
       };
 
       // 2. Fetch with Timeout to prevent serverless function hanging

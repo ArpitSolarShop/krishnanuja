@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, ArrowRight, ShieldCheck, Sun } from "lucide-react";
+import MarketingLayout from "@/components/layout/MarketingLayout";
 
 export const metadata: Metadata = {
     title: "Premium Solar Products | Krishnanuja Renewables",
@@ -37,7 +38,8 @@ const PRODUCTS = [
 
 export default function ProductsPage() {
     return (
-        <div className="min-h-screen bg-background">
+        <MarketingLayout>
+        <div className="min-h-screen bg-background pt-20">
             {/* Hero Section */}
             <div className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden border-b border-border/50">
                 <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 to-background pointer-events-none" />
@@ -52,7 +54,7 @@ export default function ProductsPage() {
                     <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
                         We only install top-tier solar panels and inverters from globally recognized manufacturers to ensure maximum efficiency and a 25-year lifespan.
                     </p>
-                    <Link href="/quote">
+                    <Link href="/#get-quote">
                         <Button size="lg" className="h-14 px-8 text-lg font-bold bg-primary text-primary-foreground hover:bg-primary/90 rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
                             Get a Quote for Your Home
                         </Button>
@@ -111,7 +113,7 @@ export default function ProductsPage() {
                                 </div>
                                 
                                 <div className="pt-8">
-                                    <Link href="/quote">
+                                    <Link href="/#get-quote">
                                         <Button variant="outline" size="lg" className="h-14 px-8 text-lg font-bold rounded-2xl hover:bg-secondary group border-border shadow-sm">
                                             Request {product.brand} Quote
                                             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -152,5 +154,6 @@ export default function ProductsPage() {
                 </div>
             </div>
         </div>
+        </MarketingLayout>
     );
 }

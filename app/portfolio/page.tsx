@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Zap } from "lucide-react";
 import { Metadata } from "next";
+import MarketingLayout from "@/components/layout/MarketingLayout";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,8 @@ export default async function PortfolioPage() {
     });
 
     return (
-        <div className="min-h-screen bg-background">
+        <MarketingLayout>
+        <div className="min-h-screen bg-background pt-20">
             <div className="bg-secondary text-foreground py-20 border-b border-border/50">
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6">Our Installations</h1>
@@ -76,5 +78,6 @@ export default async function PortfolioPage() {
                 )}
             </div>
         </div>
+        </MarketingLayout>
     );
 }

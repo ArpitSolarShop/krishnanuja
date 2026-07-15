@@ -5,6 +5,7 @@ import { productCatalog, ProductCategory, ProductVariant } from "@/lib/data/prod
 import type { Product } from "@/types/quote";
 import { Zap, Shield, Sun, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getSubsidyForCapacity } from "@/lib/companyDetails";
 
 interface SelectedProduct extends Product {
   categoryName: string;
@@ -25,13 +26,10 @@ export default function SystemBuilder() {
     }).format(amount);
   };
 
-  // PM Surya Ghar Subsidy Calculation (simplified)
   const calculateSubsidy = (product: SelectedProduct) => {
     if (product.isOffGrid || product.isVFD || product.isService || product.isNDCR) return 0;
-    const kWp = product.kWp;
-    if (kWp <= 2) return kWp * 30000;
-    if (kWp > 2 && kWp <= 3) return 60000 + ((kWp - 2) * 18000);
-    return 78000; // Cap at 3kW
+    const subsidy = getSubsidyForCapacity(product.kWp);
+    return subsidy.total;
   };
 
   // Drag Handlers
@@ -210,8 +208,10 @@ export default function SystemBuilder() {
                 </div>
                 
                 <div className="mt-8 flex justify-end">
-                  <Button size="lg" className="rounded-full px-8" onClick={() => window.location.href = '/quote'}>
-                    Proceed to Official Quote
+                  <Button size="lg" className="rounded-full px-8" onClick={() => {
+                    window.location.href = "/#get-quote";
+                  }}>
+                    Get Your Free Quote
                   </Button>
                 </div>
               </div>

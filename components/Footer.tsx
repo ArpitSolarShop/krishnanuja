@@ -3,43 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import { 
-  MapPin, Phone, Mail, Globe, ExternalLink, 
-  Share2, MessageCircle, ArrowUp 
+import {
+  MapPin, Phone, Mail, ArrowUp
 } from "lucide-react";
-
-const footerLinks = {
-  Services: [
-    { label: "Residential Solar", href: "#services" },
-    { label: "Commercial Solar", href: "#services" },
-    { label: "Ground Mounted", href: "#services" },
-    { label: "Hybrid Solutions", href: "#services" },
-    { label: "Solar Water Pump", href: "#services" },
-    { label: "Solar Water Heater", href: "#services" },
-  ],
-  Company: [
-    { label: "About Us", href: "#about" },
-    { label: "Our Projects", href: "#projects" },
-    { label: "Testimonials", href: "#testimonials" },
-    { label: "Careers", href: "#contact" },
-    { label: "Blog", href: "#" },
-  ],
-  Support: [
-    { label: "Contact Us", href: "#contact" },
-    { label: "FAQs", href: "#faq" },
-    { label: "Solar Calculator", href: "#contact" },
-    { label: "Maintenance", href: "#contact" },
-    { label: "Warranty", href: "#faq" },
-  ],
-};
-
-const socialLinks = [
-  { icon: Globe, href: "#", label: "Facebook" },
-  { icon: MessageCircle, href: "#", label: "Instagram" },
-  { icon: Share2, href: "#", label: "Twitter" },
-  { icon: ExternalLink, href: "#", label: "LinkedIn" },
-  { icon: Globe, href: "#", label: "YouTube" },
-];
+import { footerNavigation } from "@/lib/site-navigation";
 
 export default function Footer() {
   return (
@@ -49,7 +16,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
-              <Image src="/logo.png" alt="Krishnanuja" width={48} height={48} className="drop-shadow-sm" />
+              <Image src="/logo-short.png" alt="Krishnanuja" width={48} height={48} className="drop-shadow-sm rounded-xl" />
               <div>
                 <h3 className="text-xl font-bold text-foreground">Krishnanuja</h3>
                 <p className="text-xs text-muted-foreground tracking-wider uppercase font-semibold">Renewables Pvt. Ltd.</p>
@@ -88,23 +55,10 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Social */}
-            <div className="flex gap-3">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center hover:bg-primary hover:border-primary group transition-colors"
-                >
-                  <Icon className="w-4 h-4 text-foreground group-hover:text-primary-foreground transition-colors" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Links */}
-          {Object.entries(footerLinks).map(([title, links]) => (
+          {Object.entries(footerNavigation).map(([title, links]) => (
             <div key={title}>
               <h4 className="font-semibold text-foreground mb-5 text-sm uppercase tracking-wider">
                 {title}
@@ -142,7 +96,7 @@ export default function Footer() {
 
       {/* Back to top */}
       <Link
-        href="#home"
+        href="/#home"
         className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-background/80 backdrop-blur border border-border text-foreground flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all shadow-lg"
         aria-label="Back to top"
       >

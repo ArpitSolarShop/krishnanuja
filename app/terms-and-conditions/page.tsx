@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import MarketingLayout from "@/components/layout/MarketingLayout";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions | Krishnanuja Renewables",
@@ -14,6 +15,7 @@ export default function TermsAndConditionsPage() {
   });
 
   return (
+    <MarketingLayout>
     <div className="min-h-screen bg-background pt-32 pb-24">
       <div className="container mx-auto px-4 max-w-4xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">Terms and Conditions</h1>
@@ -62,5 +64,6 @@ export default function TermsAndConditionsPage() {
         </div>
       </div>
     </div>
+    </MarketingLayout>
   );
 }

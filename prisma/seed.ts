@@ -35,6 +35,36 @@ const posts = [
     }
 ];
 
+const projects = [
+    {
+        title: "5kW Rooftop System Installed in Shivpur",
+        description: "Successfully commissioned a 5kW on-grid solar system for a residential home in Shivpur. Expected annual savings: ₹60,000.",
+        category: "Residential",
+        capacity: "5kW",
+        location: "Shivpur, Varanasi",
+        imageUrl: "/Hybrid.webp",
+        featured: true,
+    },
+    {
+        title: "10kW Commercial Solar Project in Lanka",
+        description: "Installed a 10kW commercial solar plant for a hotel in Lanka, Varanasi. Helping local businesses go green.",
+        category: "Commercial",
+        capacity: "10kW",
+        location: "Lanka, Varanasi",
+        imageUrl: "/Integrated.webp",
+        featured: true,
+    },
+    {
+        title: "8kW Off-Grid System for Farmhouse in Ramnagar",
+        description: "Complete energy independence achieved with an 8kW Off-Grid system installation in Ramnagar.",
+        category: "Residential",
+        capacity: "8kW",
+        location: "Ramnagar, Varanasi",
+        imageUrl: "/Shakti Solar.webp",
+        featured: true,
+    },
+];
+
 async function main() {
     for (const post of posts) {
         await prisma.blogPost.upsert({
@@ -43,6 +73,14 @@ async function main() {
             create: post
         });
     }
+
+    await prisma.project.deleteMany({});
+    for (const project of projects) {
+        await prisma.project.create({
+            data: project
+        });
+    }
+
     console.log("Database seeded successfully!");
 }
 

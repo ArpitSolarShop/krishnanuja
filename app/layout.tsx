@@ -65,6 +65,9 @@ export const metadata: Metadata = {
 };
 
 import FloatingChatButton from "@/components/FloatingChatButton";
+import MobileFloatingQuoteButton from "@/components/MobileFloatingQuoteButton";
+import OrganizationJsonLd from "@/components/OrganizationJsonLd";
+import Analytics from "@/components/Analytics";
 
 export default function RootLayout({
   children,
@@ -77,11 +80,15 @@ export default function RootLayout({
       className={`${inter.variable} h-full antialiased`}
     >
       <head>
-        <link rel="icon" href="/logo.png" type="image/png" />
+        <link rel="icon" href="/icon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans selection:bg-foreground selection:text-background overflow-x-hidden">
+        <OrganizationJsonLd />
+        <Analytics />
         {children}
         <FloatingChatButton />
+        <MobileFloatingQuoteButton />
       </body>
     </html>
   );

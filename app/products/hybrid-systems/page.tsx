@@ -3,8 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Zap, Battery, Sun, Shield, Settings, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import MarketingLayout from "@/components/layout/MarketingLayout";
 
 export const metadata: Metadata = {
   title: "Hybrid Solar Systems & Inverters | Krishnanuja Renewables",
@@ -13,8 +12,7 @@ export const metadata: Metadata = {
 
 export default function HybridSolarPage() {
   return (
-    <>
-      <Navbar />
+    <MarketingLayout>
       <main className="pt-24 pb-16 bg-background">
         
         {/* Hero Section */}
@@ -31,7 +29,7 @@ export default function HybridSolarPage() {
                   Get the best of both worlds with our advanced hybrid solar solutions that combine solar power with battery storage for 24/7 energy independence.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Link href="/quote">
+                  <Link href="/#get-quote">
                     <Button size="lg" variant="secondary" className="rounded-full px-8 text-base h-12 text-primary font-bold hover:bg-secondary/90">
                       Get a Free Quote
                     </Button>
@@ -115,7 +113,6 @@ export default function HybridSolarPage() {
         </section>
 
       </main>
-      <Footer />
-    </>
+    </MarketingLayout>
   );
 }
