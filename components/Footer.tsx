@@ -37,7 +37,7 @@ export default function Footer() {
               <div className="flex items-start gap-3 text-sm text-muted-foreground font-medium">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                 <div className="flex flex-col gap-1">
-                  <span><strong className="text-foreground">Office:</strong> SH16/114-15-K2, Sharvodaya Nagar, Kadipur, Shivpur, Varanasi 221003</span>
+                  <span><strong className="text-foreground">Office:</strong> Sh16/114-25-K-2, Sharvodayanagar, Kadipur, Shivpur, Varanasi 221003 (UP), India</span>
                   <span><strong className="text-foreground">Warehouse:</strong> SH15/243, Bharlai, Shivpur, Varanasi 221003</span>
                 </div>
               </div>

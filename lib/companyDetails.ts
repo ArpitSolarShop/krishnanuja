@@ -6,7 +6,7 @@ export const companies = [
         tagline: "ILLUMINATING YOUR FUTURE WITH CLEAN ENERGY",
         gstin: "09APKPM6299L1ZW",
         // Addresses
-        headOffice: "Sh16/114/25-K-2, Sharvodaya Nagar, Kadipur Shivpur, Varanasi 221003",
+        headOffice: "Sh16/114-25-K-2, Sharvodayanagar, Kadipur, Shivpur, Varanasi 221003 (UP), India",
         registeredOffice: "1st Floor, Maurya Bhawan, Malgodam Road, Ballia 277001",
         // Contact
         phone: "+91 9005770466",
@@ -34,7 +34,7 @@ export const companies = [
         gstin: "09AAMCK6259J1ZU",
         cin: "U35105UP2026PTC244522",
         // Addresses
-        headOffice: "SH16/114-15-K2, SHARVODAYA NAGAR, KADIPUR, SHIVPUR, VARANASI 221003",
+        headOffice: "Sh16/114-25-K-2, Sharvodayanagar, Kadipur, Shivpur, Varanasi 221003 (UP), India",
         warehouse: "SH15/243, BHARLAI, SHIVPUR, VARANASI 221003",
         // Contact
         phone: "9044555572",

@@ -171,9 +171,9 @@ export default function ContactSection() {
               <MapPin className="w-8 h-8 text-primary mb-6" />
               <h4 className="text-2xl font-bold text-foreground mb-2">Head Office</h4>
               <p className="text-muted-foreground leading-relaxed font-medium">
-                SH16/114-15-K2, Sharvodaya Nagar<br/>
+                Sh16/114-25-K-2, Sharvodayanagar<br/>
                 Kadipur, Shivpur<br/>
-                Varanasi 221003, Uttar Pradesh
+                Varanasi 221003 (UP), India
               </p>
             </div>
 
