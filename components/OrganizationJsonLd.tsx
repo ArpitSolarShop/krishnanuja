@@ -15,7 +15,7 @@ export default function OrganizationJsonLd() {
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+91-7905763618",
+      "telephone": "+91-9044555572",
       "contactType": "customer service",
       "areaServed": "IN",
       "availableLanguage": ["English", "Hindi"]

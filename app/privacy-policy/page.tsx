@@ -66,7 +66,7 @@ export default function PrivacyPolicyPage() {
               <br /><br />
               <strong>Krishnanuja Renewables</strong><br />
               Varanasi, Uttar Pradesh, India<br />
-              Phone: +91 7905763618
+              Phone: +91 9044555572
             </p>
           </section>
         </div>

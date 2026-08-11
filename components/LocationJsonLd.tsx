@@ -19,7 +19,7 @@ const LocationJsonLd = ({ city, state }: LocationJsonLdProps) => {
                 "provider": {
                     "@type": "LocalBusiness",
                     "name": `Krishnanuja Renewables - ${city}`,
-                    "telephone": "+91-9509624540",
+                    "telephone": "+91-9044555572",
                     "priceRange": "₹50000 - ₹500000",
                     "address": {
                         "@type": "PostalAddress",

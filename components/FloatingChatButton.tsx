@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function FloatingChatButton() {
   // Replace with the business WhatsApp number
-  const phoneNumber = "917905763618";
+  const phoneNumber = "919044555572";
   const defaultMessage = "Hi Krishnanuja Renewables, I'm interested in solar installation.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
 

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Calculator, Phone, MessageCircle } from "lucide-react";
 
 export default function MobileFloatingQuoteButton() {
-  const phoneNumber = "917905763618";
+  const phoneNumber = "919044555572";
   const defaultMessage = "Hi Krishnanuja Renewables, I'm interested in solar installation.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
   const callUrl = `tel:+${phoneNumber}`;

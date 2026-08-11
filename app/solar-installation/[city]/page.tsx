@@ -152,7 +152,7 @@ export default async function LocationPage({ params }: Props) {
                         <div className="bg-secondary/30 rounded-3xl p-8 mb-8">
                             <h3 className="font-bold text-2xl mb-4 text-foreground">Contact Us</h3>
                             <div className="space-y-3 mb-6">
-                                <p className="text-lg text-foreground"><strong>Phone:</strong> <a href="tel:+919509624540" className="hover:text-primary transition-colors">+91 95096 24540</a></p>
+                                <p className="text-lg text-foreground"><strong>Phone:</strong> <a href="tel:+919044555572" className="hover:text-primary transition-colors">+91 90445 55572</a></p>
                                 <p className="text-lg text-foreground"><strong>Service Area:</strong> {location.name}, {location.discom} Region</p>
                             </div>
                             
