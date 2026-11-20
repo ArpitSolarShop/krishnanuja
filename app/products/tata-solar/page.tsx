@@ -1,22 +1,52 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Zap, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MarketingLayout from "@/components/layout/MarketingLayout";
+import { createMetadata } from "@/lib/seo/metadata";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import JsonLd from "@/components/seo/JsonLd";
+import { generateProductSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
-  title: "Tata Power Solar Solutions | Krishnanuja Renewables",
-  description: "Harness the sun with India's most trusted solar brand. Authorized Tata Power Solar dealer.",
-};
+export const metadata: Metadata = createMetadata({
+  title: "Tata Power Solar Rooftop Solutions | Krishnanuja Renewables",
+  description:
+    "Authorized channel partner for Tata Power Solar in Uttar Pradesh. High-efficiency mono PERC modules, string inverters, 25-year warranty, and PM Surya Ghar subsidies.",
+  path: "/products/tata-solar",
+  keywords: [
+    "Tata Power Solar dealer Varanasi",
+    "Tata solar panel price in UP",
+    "Tata rooftop solar installation",
+    "Tata solar mono PERC modules",
+    "Tata solar inverter",
+    "PM Surya Ghar Tata solar",
+  ],
+  image: "/Tata Power Solar.webp",
+});
 
 export default function TataSolarPage() {
-
+  const productSchema = generateProductSchema({
+    name: "Tata Power Solar PV Modules & Inverters",
+    description:
+      "Industry-leading Mono PERC solar modules and string inverters with 25-year performance warranty and authorized installation by Krishnanuja Renewables.",
+    brand: "Tata Power Solar",
+    image: "/Tata Power Solar.webp",
+    category: "Solar PV Modules",
+  });
 
   return (
     <MarketingLayout>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Products", url: "/products" },
+          { name: "Tata Power Solar", url: "/products/tata-solar" },
+        ]}
+      />
+      <JsonLd id="tata-product-schema" data={productSchema} />
+
       <main className="pt-24 pb-16 bg-background">
-        
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-secondary/50 py-20 lg:py-32">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -24,14 +54,14 @@ export default function TataSolarPage() {
               <div className="space-y-8">
                 <div>
                   <p className="text-primary font-semibold tracking-wider uppercase text-sm mb-4">
-                    Tata Power Solar Rooftop Solutions
+                    Authorized Tata Power Solar Partner
                   </p>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                     Harness the Sun with India&apos;s #1 Solar Brand.
                   </h1>
                 </div>
                 <p className="text-lg text-muted-foreground max-w-xl">
-                  Krishnanuja Renewables is an authorized partner for Tata Power Solar, bringing you premium quality, unmatched reliability, and government subsidy support.
+                  Krishnanuja Renewables is an authorized partner for Tata Power Solar, bringing you premium quality, unmatched reliability, and government subsidy support under PM Surya Ghar Yojana.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link href="/#get-quote">
@@ -39,7 +69,7 @@ export default function TataSolarPage() {
                       Get a Free Quote
                     </Button>
                   </Link>
-                  <Link href="/#contact">
+                  <Link href="/contact">
                     <Button size="lg" variant="outline" className="rounded-full px-8 text-base h-12">
                       Contact Sales
                     </Button>
@@ -49,10 +79,11 @@ export default function TataSolarPage() {
               <div className="relative aspect-square lg:aspect-[4/3] rounded-3xl overflow-hidden bg-white/50 border border-border/50 shadow-2xl flex items-center justify-center p-8">
                 <Image
                   src="/Tata Power Solar.webp"
-                  alt="Tata Power Solar Logo"
+                  alt="Tata Power Solar Official Logo and Solutions"
                   width={400}
                   height={300}
                   className="object-contain drop-shadow-xl"
+                  priority
                 />
               </div>
             </div>
@@ -142,7 +173,6 @@ export default function TataSolarPage() {
             </div>
           </div>
         </section>
-
       </main>
     </MarketingLayout>
   );

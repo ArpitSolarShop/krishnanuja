@@ -42,49 +42,47 @@ export async function generateStaticParams() {
     }));
 }
 
+import { createMetadata } from "@/lib/seo/metadata";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { city } = await params;
     const location = locations.find((l) => l.slug === city);
 
     if (!location) {
-        return {
+        return createMetadata({
             title: "Solar Installation | Krishnanuja Renewables",
-        };
+            description: "Explore solar panel installation services across India.",
+            path: "/solar-installation",
+        });
     }
 
-    return {
+    const keywords = [
+        `Solar Panel Price in ${location.name}`,
+        `Solar Panel Installation ${location.name}`,
+        `Solar Company in ${location.name}`,
+        `Rooftop Solar ${location.name}`,
+        `Solar Subsidy ${location.name}`,
+        `PM Surya Ghar Yojana ${location.name}`,
+        `Best Solar Dealer in ${location.name}`,
+        `Solar System Installation ${location.name}`,
+        `Top Solar Company in ${location.name}`,
+        `Solar Shop in ${location.name}`,
+        `Commercial Solar Plant in ${location.name}`,
+        `Solar Rooftop Subsidy ${location.name}`,
+        `3kW Solar System Price ${location.name}`,
+        `5kW Solar System Price ${location.name}`,
+        `10kW Solar System Cost ${location.name}`,
+        `Solar EMI Options ${location.name}`,
+        `Solar Consultation ${location.name}`,
+        `Solar EPC Company ${location.name}`,
+    ];
+
+    return createMetadata({
         title: `Solar Panel Price & Installation in ${location.name} | Krishnanuja Renewables`,
-        description: `Looking for solar panels in ${location.name}? Krishnanuja Renewables offers premium installation with subsidies under PM Surya Ghar Yojana. Get the best solar systems in ${location.name}.`,
-        keywords: [
-            `Solar Panel Price in ${location.name}`,
-            `Solar Panel Installation ${location.name}`,
-            `Solar Company in ${location.name}`,
-            `Rooftop Solar ${location.name}`,
-            `Solar Subsidy ${location.name}`,
-            `PM Surya Ghar Yojana ${location.name}`,
-            `Best Solar Dealer in ${location.name}`,
-            `Solar System Installation ${location.name}`,
-            `Top Solar Company in ${location.name}`,
-            `Solar Shop in ${location.name}`,
-            `Commercial Solar Plant in ${location.name}`,
-            `Solar Rooftop Subsidy ${location.name}`,
-            `3kW Solar System Price ${location.name}`,
-            `5kW Solar System Price ${location.name}`,
-            `10kW Solar System Cost ${location.name}`,
-            `Solar EMI Options ${location.name}`,
-            `Solar Consultation ${location.name}`,
-            `Solar EPC Company ${location.name}`,
-            `Off-grid Solar System ${location.name}`,
-            `Hybrid Solar System ${location.name}`,
-        ],
-        openGraph: {
-            title: `Premium Solar Panel Installer in ${location.name} | Krishnanuja Renewables`,
-            description: `Get subsidies for Solar in ${location.name}. Trusted by families and businesses. Official Partner.`,
-        },
-        alternates: {
-            canonical: `/solar-installation/${location.slug}`,
-        },
-    };
+        description: `Looking for rooftop solar in ${location.name}? Krishnanuja Renewables offers Tier-1 panels, 25-yr warranty & up to ₹${location.subsidy} subsidy under PM Surya Ghar Yojana. Get a free quote!`,
+        path: `/solar-installation/${location.slug}`,
+        keywords,
+    });
 }
 
 export default async function LocationPage({ params }: Props) {
@@ -96,7 +94,12 @@ export default async function LocationPage({ params }: Props) {
     return (
         <MarketingLayout>
         <div className="bg-background min-h-screen text-foreground">
-            <LocationJsonLd city={location.name} state={location.state} />
+            <LocationJsonLd 
+                city={location.name} 
+                state={location.state} 
+                pincode={location.pincode} 
+                subsidy={location.subsidy} 
+            />
 
             {/* Location Hero */}
             <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-background">

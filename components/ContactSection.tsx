@@ -167,14 +167,26 @@ export default function ContactSection() {
           {/* Right Column: Bento Grid Contact Info */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6 h-full">
             {/* Office Block */}
-            <div className="sm:col-span-2 p-8 rounded-[2rem] bg-secondary/50 border border-border/50 hover:bg-secondary/80 transition-colors">
-              <MapPin className="w-8 h-8 text-primary mb-6" />
-              <h4 className="text-2xl font-bold text-foreground mb-2">Head Office</h4>
-              <p className="text-muted-foreground leading-relaxed font-medium">
-                Sh16/114-25-K-2, Sharvodayanagar<br/>
-                Kadipur, Shivpur<br/>
-                Varanasi 221003 (UP), India
-              </p>
+            <div className="sm:col-span-2 p-8 rounded-[2rem] bg-secondary/50 border border-border/50 hover:bg-secondary/80 transition-colors flex flex-col justify-between">
+              <div>
+                <MapPin className="w-8 h-8 text-primary mb-6" />
+                <h4 className="text-2xl font-bold text-foreground mb-2">Head Office</h4>
+                <p className="text-muted-foreground leading-relaxed font-medium">
+                  Sh16/114-25-K-2, Sharvodayanagar<br/>
+                  Kadipur, Shivpur<br/>
+                  Varanasi 221003 (UP), India
+                </p>
+              </div>
+              <div className="pt-6">
+                <a
+                  href="https://local.google.com/place?placeid=ChIJS1upMo4tjjkRsv-DF1vx_Fo&utm_medium=noren&utm_source=gbp&utm_campaign=2026"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:underline bg-primary/10 px-4 py-2 rounded-full transition-colors hover:bg-primary/20"
+                >
+                  <span>Open in Google Maps ↗</span>
+                </a>
+              </div>
             </div>
 
             {/* Warehouse Block */}

@@ -8,7 +8,7 @@ export type SiteLink = {
 export const primaryNavigation: SiteLink[] = [
   { href: "/", label: "Home" },
   { href: "/products", label: "Products" },
-
+  { href: "/solar-installation", label: "Locations" },
   { href: "/build-your-system", label: "System Builder" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
@@ -22,7 +22,7 @@ export const footerNavigation = {
     { href: "/products/reliance-new-energy", label: "Reliance New Energy" },
   ],
   Explore: [
-
+    { href: "/solar-installation", label: "Service Locations" },
     { href: "/build-your-system", label: "System Builder" },
     { href: "/#get-quote", label: "Get a Quote" },
     { href: "/blog", label: "Solar Insights" },
@@ -41,9 +41,8 @@ export const publicStaticRoutes = [
   "/products/tata-solar",
   "/products/hybrid-systems",
   "/products/reliance-new-energy",
-
+  "/solar-installation",
   "/build-your-system",
-  "/#get-quote",
   "/blog",
   "/contact",
   "/privacy-policy",

@@ -53,6 +53,17 @@ export default function Footer() {
                   info@krishnanuja.com
                 </a>
               </div>
+              <div className="pt-2">
+                <a
+                  href="https://local.google.com/place?placeid=ChIJS1upMo4tjjkRsv-DF1vx_Fo&utm_medium=noren&utm_source=gbp&utm_campaign=2026"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-full"
+                >
+                  <span>📍 Verified Google Business Profile</span>
+                  <span className="text-[10px] text-muted-foreground">(4.9 ★★★★★)</span>
+                </a>
+              </div>
             </div>
 
           </div>
@@ -97,10 +108,10 @@ export default function Footer() {
       {/* Back to top */}
       <Link
         href="/#home"
-        className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-background/80 backdrop-blur border border-border text-foreground flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all shadow-lg"
+        className="fixed bottom-24 right-7.5 z-40 w-11 h-11 rounded-full bg-background/90 backdrop-blur-md border border-border/80 text-muted-foreground flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all shadow-md group"
         aria-label="Back to top"
       >
-        <ArrowUp className="w-5 h-5" />
+        <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
       </Link>
     </footer>
   );

@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "Are government subsidies available for solar installation?",
-    answer: "Yes! Under the PM Surya Ghar scheme, residential consumers can avail subsidies of up to ₹78,000 for systems up to 3kW, and ₹78,000 for systems between 3-10kW. Krishnanuja Renewables handles the entire subsidy application and disbursement process for you at no extra charge.",
+    answer: "Yes! Under the PM Surya Ghar Muft Bijli Yojana, residential consumers can receive central subsidies up to ₹78,000. In Uttar Pradesh, the state government provides an additional subsidy up to ₹30,000 through UPNEDA, totaling up to ₹1,08,000 directly credited to your bank account. Krishnanuja Renewables handles the entire subsidy documentation, DISCOM net metering, and portal processing on your behalf.",
   },
   {
     question: "How long does solar panel installation take?",

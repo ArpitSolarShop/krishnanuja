@@ -1,20 +1,52 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Zap, Battery, Sun, Shield, Settings, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MarketingLayout from "@/components/layout/MarketingLayout";
+import { createMetadata } from "@/lib/seo/metadata";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import JsonLd from "@/components/seo/JsonLd";
+import { generateProductSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
-  title: "Hybrid Solar Systems & Inverters | Krishnanuja Renewables",
-  description: "Best Hybrid Solar Systems. Smart energy solutions that work with and without the grid. Authorized dealer for top brands.",
-};
+export const metadata: Metadata = createMetadata({
+  title: "Hybrid Solar Systems with Battery Storage | Krishnanuja Renewables",
+  description:
+    "Reliable hybrid solar power systems combining rooftop solar panels with advanced lithium battery energy storage. Enjoy 24/7 power backup and net metering savings.",
+  path: "/products/hybrid-systems",
+  keywords: [
+    "hybrid solar system India",
+    "solar battery system for home",
+    "hybrid solar inverter price",
+    "solar with battery backup",
+    "lithium battery solar storage",
+    "off grid hybrid solar installation",
+  ],
+  image: "/Hybrid.webp",
+});
 
 export default function HybridSolarPage() {
+  const hybridProductSchema = generateProductSchema({
+    name: "Krishnanuja Hybrid Solar System with Battery Backup",
+    description:
+      "Smart 24/7 hybrid energy solution combining high-efficiency rooftop solar modules, hybrid bi-directional inverter, and lithium-ion battery storage.",
+    brand: "Krishnanuja Renewables",
+    image: "/Hybrid.webp",
+    category: "Hybrid Solar Energy Systems",
+  });
+
   return (
     <MarketingLayout>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Products", url: "/products" },
+          { name: "Hybrid Systems", url: "/products/hybrid-systems" },
+        ]}
+      />
+      <JsonLd id="hybrid-product-schema" data={hybridProductSchema} />
+
       <main className="pt-24 pb-16 bg-background">
-        
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-primary text-primary-foreground py-20 lg:py-32">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -34,9 +66,9 @@ export default function HybridSolarPage() {
                       Get a Free Quote
                     </Button>
                   </Link>
-                  <Link href="/#contact">
+                  <Link href="/contact">
                     <Button size="lg" className="rounded-full px-8 text-base h-12 border-2 border-primary-foreground/20 hover:bg-primary-foreground/10 bg-transparent">
-                      Learn More
+                      Contact Us
                     </Button>
                   </Link>
                 </div>
@@ -44,10 +76,11 @@ export default function HybridSolarPage() {
               <div className="relative aspect-square lg:aspect-[4/3] rounded-3xl overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl flex items-center justify-center p-8">
                 <Image
                   src="/Hybrid.webp"
-                  alt="Hybrid Solar System"
+                  alt="Hybrid Solar System Inverter and Battery Bank"
                   width={400}
                   height={400}
                   className="object-contain drop-shadow-2xl"
+                  priority
                 />
               </div>
             </div>
@@ -111,7 +144,6 @@ export default function HybridSolarPage() {
             </div>
           </div>
         </section>
-
       </main>
     </MarketingLayout>
   );

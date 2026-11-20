@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { siteConfig } from "@/lib/seo/config";
+import { primaryKeywords } from "@/lib/seo/keywords";
+import FloatingChatButton from "@/components/FloatingChatButton";
+import MobileFloatingQuoteButton from "@/components/MobileFloatingQuoteButton";
+import GlobalSchema from "@/components/seo/GlobalSchema";
+import Analytics from "@/components/Analytics";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -8,48 +14,41 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://krishnanuja.com'),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Krishnanuja Renewables | Premium Solar EPC Services in India",
-    template: "%s | Krishnanuja Renewables",
+    default: `${siteConfig.name} | ${siteConfig.tagline}`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "India's trusted Solar EPC partner. Krishnanuja Renewables provides premium end-to-end solar solutions for residential, commercial, and industrial projects with PM Surya Ghar Yojana subsidies.",
-  keywords: [
-    "solar panels",
-    "solar EPC",
-    "rooftop solar",
-    "solar installation India",
-    "renewable energy",
-    "Krishnanuja Renewables",
-    "solar power",
-    "PM Surya Ghar Yojana",
-    "best solar installer",
-  ],
-  authors: [{ name: "Krishnanuja Renewables" }],
-  creator: "Krishnanuja Renewables",
+  description: siteConfig.description,
+  keywords: primaryKeywords,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.legalName,
+  category: "Solar Energy & Renewable EPC",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://krishnanuja.com",
-    title: "Krishnanuja Renewables | Premium Solar EPC Services in India",
-    description:
-      "End-to-end solar solutions for homes and businesses. India's trusted Solar EPC partner.",
-    siteName: "Krishnanuja Renewables",
+    url: siteConfig.url,
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
     images: [
       {
-        url: "/solar-farm.png",
+        url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "Krishnanuja Renewables Solar Farm",
+        alt: `${siteConfig.name} Solar Farm & Rooftop EPC`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Krishnanuja Renewables | Premium Solar EPC Services",
-    description: "Save up to 90% on electricity bills with India's trusted Solar partner.",
-    images: ["/solar-farm.png"],
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description: "Save up to 90% on electricity bills with India's trusted Solar EPC partner.",
+    images: [siteConfig.ogImage],
   },
   robots: {
     index: true,
@@ -62,12 +61,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || undefined,
+  },
 };
-
-import FloatingChatButton from "@/components/FloatingChatButton";
-import MobileFloatingQuoteButton from "@/components/MobileFloatingQuoteButton";
-import OrganizationJsonLd from "@/components/OrganizationJsonLd";
-import Analytics from "@/components/Analytics";
 
 export default function RootLayout({
   children,
@@ -84,7 +81,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon.png" />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans selection:bg-foreground selection:text-background overflow-x-hidden">
-        <OrganizationJsonLd />
+        <GlobalSchema />
         <Analytics />
         {children}
         <FloatingChatButton />
@@ -93,4 +90,3 @@ export default function RootLayout({
     </html>
   );
 }
-

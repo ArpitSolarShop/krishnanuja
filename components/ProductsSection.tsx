@@ -36,7 +36,7 @@ const hardware = [
 
 export default function ProductsSection() {
   return (
-    <section className="py-24 bg-secondary/30 border-t border-border/50">
+    <section id="products" className="py-24 bg-secondary/30 border-t border-border/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -81,14 +81,6 @@ export default function ProductsSection() {
               </motion.div>
             )
           })}
-        </div>
-
-        <div className="mt-16 flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-          <div className="text-xl font-black text-slate-800">TATA POWER</div>
-          <div className="text-xl font-black text-slate-800">RELIANCE</div>
-          <div className="text-xl font-black text-slate-800">WAAREE</div>
-          <div className="text-xl font-black text-slate-800">VIKRAM SOLAR</div>
-          <div className="text-xl font-black text-slate-800">GROWATT</div>
         </div>
 
       </div>

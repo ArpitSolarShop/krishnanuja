@@ -50,11 +50,12 @@ export default function AboutSection() {
 
           {/* Image side */}
           <div className="relative order-1 lg:order-2">
-            <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-secondary shadow-2xl">
+            <div className="aspect-[4/5] relative rounded-3xl overflow-hidden bg-secondary shadow-2xl">
               <Image
                 src="/solar-farm.png"
                 alt="Krishnanuja Renewables Solar Farm"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>

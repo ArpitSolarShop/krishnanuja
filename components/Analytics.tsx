@@ -2,9 +2,8 @@
 
 import Script from "next/script";
 
-// NOTE TO DEVELOPER/OWNER: 
-// Replace 'G-XXXXXXXXXX' with your actual Google Analytics Measurement ID.
-const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; 
+// Read Google Analytics Measurement ID from environment variable or fallback to placeholder
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"; 
 
 export default function Analytics() {
   // If the ID is the placeholder or not set, don't load the script.

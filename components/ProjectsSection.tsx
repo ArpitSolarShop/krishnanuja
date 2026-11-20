@@ -6,23 +6,23 @@ import InstallationCarousel from "./InstallationCarousel";
 
 const projects = [
   {
-    title: "50kW Rooftop Solar",
+    title: "50kW Commercial Rooftop Solar",
     location: "Industrial Area, Varanasi",
     capacity: "50 kW",
     year: "2025",
     type: "Commercial",
-    image: "/commercial-solar.png",
+    image: "/assets/projects/c3.jpg",
   },
   {
-    title: "Residential Complex",
+    title: "Residential Society Complex",
     location: "Sigra, Varanasi",
     capacity: "120 kW",
     year: "2024",
     type: "Housing",
-    image: "/hero-solar.png",
+    image: "/assets/projects/c1.jpg",
   },
   {
-    title: "Ground Mounted Plant",
+    title: "Ground Mounted Utility Plant",
     location: "Jaunpur, UP",
     capacity: "1 MW",
     year: "2024",
@@ -30,7 +30,7 @@ const projects = [
     image: "/solar-farm.png",
   },
   {
-    title: "Factory Rooftop",
+    title: "Factory High-Rise Rooftop",
     location: "MIDC, Lucknow",
     capacity: "200 kW",
     year: "2025",
@@ -65,6 +65,7 @@ export default function ProjectsSection() {
                   src={project.image}
                   alt={project.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                 />
                 <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-md text-foreground text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest">

@@ -1,29 +1,61 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import MarketingLayout from "@/components/layout/MarketingLayout";
+import { createMetadata } from "@/lib/seo/metadata";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import JsonLd from "@/components/seo/JsonLd";
+import { generateProductSchema } from "@/lib/seo/schema";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Reliance New Energy Solar Solutions | Krishnanuja Renewables",
-  description: "Authorized Channel Partner for Reliance New Energy. Premium solar products and complete solar ecosystem solutions.",
-};
+  description:
+    "Authorized Channel Partner for Reliance New Energy. High-efficiency heterojunction solar technology, green energy infrastructure, and industrial solar solutions in India.",
+  path: "/products/reliance-new-energy",
+  keywords: [
+    "Reliance New Energy partner",
+    "Reliance solar panels India",
+    "REC Group solar modules",
+    "Reliance solar installation Uttar Pradesh",
+    "heterojunction solar panels India",
+  ],
+  image: "/assets/reliance/newenergy-banner.jpg",
+});
 
 export default function RelianceNewEnergyPage() {
+  const relianceProductSchema = generateProductSchema({
+    name: "Reliance New Energy Solar Solutions",
+    description:
+      "Next-generation solar photovoltaics backed by Reliance New Energy and REC Group for sustainable residential and commercial power.",
+    brand: "Reliance New Energy",
+    image: "/assets/reliance/newenergy-banner.jpg",
+    category: "Solar Photovoltaic Solutions",
+  });
+
   return (
     <MarketingLayout>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Products", url: "/products" },
+          { name: "Reliance New Energy", url: "/products/reliance-new-energy" },
+        ]}
+      />
+      <JsonLd id="reliance-product-schema" data={relianceProductSchema} />
+
       <main className="pt-24 pb-16 bg-background">
-        
         {/* Hero Section */}
         <section className="relative w-full h-[60vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/assets/reliance/newenergy-banner.jpg"
-              alt="Reliance New Energy Banner"
+              alt="Reliance New Energy Solar Technology and Green Infrastructure"
               fill
               className="object-cover"
               priority
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
           </div>
@@ -39,7 +71,7 @@ export default function RelianceNewEnergyPage() {
               Moving to a Greener Economy with Reliance New Energy and Krishnanuja Renewables.
             </p>
             <div className="pt-8">
-            <Link href="/#get-quote">
+              <Link href="/#get-quote">
                 <Button size="lg" className="rounded-full px-8 text-base h-12 bg-primary text-primary-foreground hover:bg-primary/90">
                   Get a Free Quote
                 </Button>
@@ -83,9 +115,10 @@ export default function RelianceNewEnergyPage() {
               <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl border border-border/50">
                 <Image
                   src="/assets/reliance/green-energy.jpg"
-                  alt="Green Energy"
+                  alt="Reliance Green Energy Solar Panels and Plant"
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </div>
@@ -99,9 +132,10 @@ export default function RelianceNewEnergyPage() {
               <div className="relative aspect-square lg:aspect-video rounded-3xl overflow-hidden shadow-2xl border border-border/50 order-2 md:order-1">
                 <Image
                   src="/assets/reliance/end-solar-pv-ecosystem.jpg"
-                  alt="End-to-End Solar PV Ecosystem"
+                  alt="End-to-End Solar PV Ecosystem Jamnagar"
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               <div className="space-y-6 order-1 md:order-2">
@@ -163,6 +197,7 @@ export default function RelianceNewEnergyPage() {
                       alt={item.title}
                       fill
                       className="object-contain object-left"
+                      sizes="(max-width: 768px) 100vw, 25vw"
                     />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
@@ -185,7 +220,6 @@ export default function RelianceNewEnergyPage() {
             </Link>
           </div>
         </section>
-
       </main>
     </MarketingLayout>
   );

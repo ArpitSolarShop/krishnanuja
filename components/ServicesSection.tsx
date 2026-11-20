@@ -34,8 +34,8 @@ const services = [
   },
   {
     icon: Sun,
-    title: "Water Pumping",
-    description: "Sustainable irrigation solutions for agriculture without fuel costs.",
+    title: "Agricultural Pumps & Atta Chakki",
+    description: "Shakti solar pumps and heavy-duty solar atta chakki (flour mill) solutions eliminating recurring diesel costs.",
     image: "/solar-farm.png",
   },
   {
@@ -72,6 +72,7 @@ export default function ServicesSection() {
                   src={service.image}
                   alt={service.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>

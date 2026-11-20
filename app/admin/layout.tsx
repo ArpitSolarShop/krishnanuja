@@ -1,6 +1,20 @@
 import { ReactNode } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { LayoutDashboard, Users } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard | Krishnanuja Renewables",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+};
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
     return (
